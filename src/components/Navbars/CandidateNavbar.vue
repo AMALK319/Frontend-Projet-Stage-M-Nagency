@@ -1,7 +1,7 @@
 <template>
-  <nav class="navbar fixed navbar-expand-lg">
+  <nav class="navbar fixed  navbar-expand-lg" style="background-color:#DC143C">
     <div class="container-fluid">
-      <a class="navbar-brand " href="#">Logo</a>
+      <a class="navbar-brand nav-link" style="color:white" href="/">Logo</a>
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -17,7 +17,7 @@
           <li class="nav-item" id="cv">
             <a
               class="nav-link navlink"
-              href=""
+              href="/candidate/cv"
              
               >Mon Cv</a
             >
@@ -93,15 +93,10 @@ export default {
 
 
 <style scoped>
-#nav {
-   background-color: 	#fc581c; 
-   
-}
+
 .navlink {
   font-weight: bold;
   color: white;
 }
-.active {
-  color: #00008b;
-}
+
 </style>

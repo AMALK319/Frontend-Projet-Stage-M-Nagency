@@ -23,7 +23,7 @@
         <a
           class="btn btn-lg btn-block"
           href="/login"
-          style="width: 250px; background-color: #f37041; color: white"
+          style="width: 250px; background-color: #DC143C; color: white"
         >
           Se connecter
         </a>
@@ -49,7 +49,7 @@ export default {
   },
   mounted() {
     axios
-      .post("http://127.0.0.1:8000/api/email_verification/" + this.token)
+      .post( this.$appUrl+"/api/email_verification/" + this.token)
       .then((response) => {
         console.log(response);
       })
@@ -62,8 +62,8 @@ export default {
 .card {
   height: auto;
   width: 600px;
-  border-color: #f8d2c3;
-  box-shadow: #f37041;
+  border-color: #fabfcb;
+  box-shadow: #DC143C;
   border-radius: 3%;
   display: flex;
   justify-content: center;
@@ -74,7 +74,7 @@ export default {
   /* margin-top: 6%; */
 }
 .navbar-brand {
-  color: #fc581c;
+  color: #DC143C;
   font-size: 30px;
   font-family: "Comic Sans MS", cursive;
   padding-left: 120px;

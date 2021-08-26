@@ -44,7 +44,7 @@
     <!-- Grid container -->
 
     <!-- Copyright -->
-    <div class="text-center text-light p-3" style="background-color: #f77128">
+    <div class="text-center text-light p-3" style="background-color: #DC143C">
       © 2020 Copyright:
       <a class="text-light" href="https://mdbootstrap.com/">MDBootstrap.com</a>
     </div>

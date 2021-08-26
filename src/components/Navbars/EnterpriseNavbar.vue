@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navigation navbar-expand-lg ">
     <div class="container-fluid">
-      <a class="navbar-brand navlink" href="#">Logo</a>
+      <a class="navbar-brand navlink" href="/">Logo</a>
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -102,7 +102,7 @@ export default {
 
 <style scoped>
 /* #nav {
-   background-color: 	#fc581c; 
+   background-color: 	#DC143C; 
    
 } */
 .navlink {

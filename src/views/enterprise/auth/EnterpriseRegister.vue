@@ -121,7 +121,7 @@
         <button
           type="submit"
           class="btn  btn-md btn-block pull-right"
-          style=" background-color : #fc581c ; color: white ; width : 15%  "
+          style=" background-color :#DC143C ; color: white ; width : 15%  "
           @click="registerIt"
         >
           S'inscrire
@@ -167,7 +167,7 @@ export default {
     registerIt() {
       axios
         .post(
-          "http://127.0.0.1:8000/api/company-representative-register",
+          this.$appUrl+"/api/company-representative-register",
           this.register
         )
         .then((response) => {
@@ -191,7 +191,7 @@ export default {
 .content {
 }
 .navbar-brand {
-  color: #fc581c;
+  color:#DC143C;
   font-size: 30px;
   font-family: "Comic Sans MS", cursive;
   padding-left: 120px;
@@ -207,12 +207,12 @@ export default {
   margin-left: auto;
   margin-right: auto;
   margin-top: 2%;
-  box-shadow: #fc581c;
+  box-shadow:#DC143C;
   height: auto;
 }
 h3 {
   text-align: center;
-  color: #fc581c;
+  color:#DC143C;
 }
 label {
   font-weight: 500;

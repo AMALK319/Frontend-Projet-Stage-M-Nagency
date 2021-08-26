@@ -47,7 +47,7 @@
           <button
             type="submit"
             class="btn btn-lg btn-block"
-            style="width: 100%; background-color: #f77128; color: white"
+            style="width: 100%; background-color: #DC143C; color: white"
           >
             Sauvegarder
           </button>
@@ -89,7 +89,7 @@ export default {
 }
 h3 {
   text-align: center;
-  color: #f77128;
+  color: #DC143C;
 }
 label {
   font-weight: 500;

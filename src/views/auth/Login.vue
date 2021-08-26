@@ -23,10 +23,16 @@
               type="email"
               v-model="login.email"
               class="form-control form-control-lg"
+              :class="{
+                'border-danger': hasError,
+                'text-danger': hasError,
+                
+              }"
               required
             />
+            <span class="text-danger" v-if="erreur">{{ erreur }}</span>
           </div>
-
+          <br />
           <div class="form-group">
             <label>Password</label>
             <input
@@ -36,6 +42,11 @@
               v-model="login.password"
               class="form-control form-control-lg"
               required
+              :class="{
+                'border-danger': hasError,
+                'text-danger': hasError,
+                
+              }"
             />
           </div>
           <br />
@@ -43,7 +54,7 @@
             type="button"
             class="btn  btn-lg btn-block"
             @click="loginIt"
-            style="width: 100% ; background-color: #fc581c ; color: white;"
+            style="width: 100% ; background-color: #DC143C ; color: white;"
           >
             Se connecter
           </button>
@@ -74,7 +85,7 @@
         </div>
       </div>
     </div>
-  <!--   <Footer></Footer> -->
+    <!--   <Footer></Footer> -->
   </div>
 </template>
 
@@ -82,41 +93,61 @@
 /* import EnterpriseNavbar from "@/components/Navbars/EnterpriseNavbar.vue";
 import Footer from "@/components/Footer.vue"; */
 
-import axios from "axios";
+//import axios from "axios";
 export default {
   name: "Login",
   components: {
-   /*  EnterpriseNavbar,
+    /*  EnterpriseNavbar,
     Footer, */
   },
   data() {
     return {
       login: {
-        email: "amalkalim@gmail.com",
-        password: ".",
+        email: "",
+        password: "",
       },
-      submitted: false,
+     
+      hasError: false,
+      erreur: "",
+      success: false,
     };
   },
 
   methods: {
+    error() {},
+
     loginIt() {
-      axios
-        .post(this.$appUrl+"/api/user-login1", this.login)
+      this.$store
+        .dispatch("login", this.login)
         .then((response) => {
-           console.log("dddd",response);
-          if(response.data.space_name == "candidate") {
-              // go to candidate space [store] (response.data.user
-          }else{
-              // go to entreprise space
+          console.log(response.data);
+          this.erreur = [];
+          this.success = true;
+          console.log(response.data.space_name);
+          if (response.data.space_name == "candidate") {
+            // go to candidate space
+            this.$router.push("/candidate/home");
+          } else {
+            // go to entreprise space
+            this.$router.push("/enterprise/home");
           }
         })
         .catch((error) => {
-           console.log(error.response.data);
-     
+          console.log(error.response);
+
+          if (error.response.data.message == "e-mail not verified") {
+             this.erreur = "E-mail non vérifié!";
+            (this.hasError = true),  (this.success = false);
+            this.$toast.error("Votre e-mail n'est pas encore vérifié!");
+            
+            
+          } else {
+            this.erreur = "E-mail ou mot de passe incorrect!";
+            (this.hasError = true), (this.success = false);
+            this.$toast.error("Impossible de se connecter!");
+          }
         });
     },
-   
   },
   mounted() {},
 };
@@ -134,20 +165,21 @@ export default {
   margin-left: auto;
   margin-right: auto;
   /* margin-top: 5%; */
-  box-shadow: #f4661b;
+  box-shadow: #dc143c;
 }
 .navbar-brand {
-  color: #fc581c;
+  color: #dc143c;
   font-size: 30px;
   font-family: "Comic Sans MS", cursive;
   padding-left: 120px;
 }
 h3 {
   text-align: center;
-  color: #f4661b;
+  color: #dc143c;
 }
 label {
   font-weight: 500;
   color: grey;
 }
+
 </style>

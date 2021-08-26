@@ -76,7 +76,7 @@ export default {
   /* background-color: white; */
 }
 .navbar-brand {
-  color: #fc581c;
+  color: #DC143C;
   font-size: 30px;
   font-family: "Comic Sans MS", cursive;
   padding-left: 120px;
@@ -88,8 +88,8 @@ export default {
 .card {
   height: auto;
   max-height: 700px;
-  border-color: #f8d2c3;
-  box-shadow: #fc581c;
+  border-color: #f7cdd5;
+  box-shadow: #DC143C;
 }
 .icon {
   text-align: center;
@@ -104,6 +104,6 @@ export default {
   font-size: small;
 }
 .link {
-  color: #fc581c;
+  color: #DC143C;
 }
 </style>

@@ -1,7 +1,7 @@
 
 
 import EnterpriseRegister from '../views/enterprise/auth/EnterpriseRegister.vue';
-
+import HomeEnterprise from '../views/enterprise/HomeEnterprise.vue'
 import Container from '../views/enterprise/Container.vue'
 const EntrepriseRoute = [
     
@@ -12,8 +12,9 @@ const EntrepriseRoute = [
         
         children : [
           
-           
+         
             { path: '/enterprise/register', name: 'EnterpriseRegister', component: EnterpriseRegister },
+            { path: '/enterprise/home', name: ' HomeEnterprise', component:  HomeEnterprise },
             
            
         ]
