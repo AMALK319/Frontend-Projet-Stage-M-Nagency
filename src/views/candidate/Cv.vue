@@ -357,8 +357,7 @@ import CandidateNavbar from "@/components/Navbars/CandidateNavbar.vue";
 import AddDegree from "../../components/Cv/AddDegree.vue";
 import AddProject from "../../components/Cv/AddProject.vue";
 import AddCompetence from "../../components/Cv/AddCompetence.vue";
-
-import axios from "axios";
+import ApiService from "../../services/api.service";
 /* import Footer from "@/components/Footer.vue"; */
 export default {
   name: "Cv",
@@ -515,10 +514,12 @@ export default {
     save() {
       const data = {
         degrees: this.degrees,
-        projects: this.projects
+        projects: this.projects,
+      /*   token: this.$store.token, */
+     
       }
-      axios
-        .post(this.$appUrl + "/api/store-cv", data)
+      
+        ApiService.post(this.$appUrl + "/api/candidate/store-cv", data)
         .then((response) => {
         
           console.log(response);
