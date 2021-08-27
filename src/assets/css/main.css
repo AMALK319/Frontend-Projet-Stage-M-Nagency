@@ -63,3 +63,69 @@ body{
   transition: none;
   color: #222222;
 }
+
+/* Cv and its components */
+.small-card {
+  width: 95%;
+  margin: auto;
+  padding: 20px;
+  box-shadow: #dc143c;
+  height: auto;
+}
+h3 {
+  text-align: center;
+  color: #dc143c;
+}
+h5 {
+  margin-left: 4%;
+}
+label {
+  font-weight: 500;
+  color: grey;
+}
+.add-btn {
+/*   display: block;
+  margin: auto; */
+  background-color: #dc143c;
+  color: white;
+  margin-right: 2.5%;
+  margin-bottom: 1%;
+}
+.submit-btn {
+ /*  background-color: #dc143c;
+  color: white; */
+  margin-right: 2.5%;
+  margin-bottom: 1%;
+  display: block;
+  margin: auto; 
+  min-width: 16%;
+}
+.btn-complete {
+  color: white;
+  margin-left: 2.5%;
+  margin-bottom: 1%;
+  min-width: 12%;
+}
+hr {
+  display: block;
+  margin: auto;
+  width: 90%;
+}
+a:link {
+  color: #ccc;
+}
+/* lien visité */
+a:visited {
+  color: #095484;
+}
+/* souris sur le lien */
+a:hover {
+  color: #dc143c;
+}
+/* lien sélécté */
+.icon {
+  text-align: center;
+  font-size: 50px;
+}
+
+/* Cv and its components */
