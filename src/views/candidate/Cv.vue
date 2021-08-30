@@ -66,7 +66,9 @@
                       type="text"
                       autofocus="autofocus"
                       class="form-control"
+                      v-model="coord.first_name"
                       aria-label=" "
+                      placeholder=""
                     />
                   </div>
                   <div class="col-6">
@@ -75,6 +77,7 @@
                       type="text"
                       autofocus="autofocus"
                       class="form-control"
+                      v-model="coord.last_name"
                       aria-label=" "
                     />
                   </div>
@@ -90,6 +93,7 @@
                       autofocus="autofocus"
                       class="form-control"
                       aria-label=" "
+                      v-model="coord.email"
                     />
                   </div>
                   <div class="col-6">
@@ -101,6 +105,7 @@
                       autofocus="autofocus"
                       class="form-control"
                       aria-label=" "
+                      v-model="coord.mobile_number"
                     />
                   </div>
                 </div>
@@ -115,6 +120,7 @@
                   autofocus="autofocus"
                   class="form-control"
                   aria-label=" "
+                  v-model="coord.gender"
                 >
                   <option selected>Mme</option>
                   <option value="1">Mr</option>
@@ -128,6 +134,7 @@
                   autofocus="autofocus"
                   class="form-control"
                   aria-label=" "
+                  v-model="coord.nationality"
                 />
               </div>
             </div>
@@ -141,6 +148,7 @@
                   autofocus="autofocus"
                   class="form-control"
                   aria-label=" "
+                  v-model="coord.date_of_birth"
                 />
               </div>
               <div class="col-6">
@@ -156,6 +164,22 @@
                   <option value="1">Data</option>
                   <option value="1">Cloud</option>
                 </select>
+              </div>
+            </div>
+            <br />
+            <div class="row">
+              <div class="col-12">
+                <label for="motivation" class="control-label"
+                  >Motivation:</label
+                >
+                <textarea
+                  id="motivation"
+                  type="text-area"
+                  autofocus="autofocus"
+                  class="form-control"
+                  v-model="coord.motivation"
+                  aria-label=" "
+                ></textarea>
               </div>
             </div>
           </div>
@@ -341,16 +365,37 @@
 
           <!--   quality -->
         </div>
-        <button  class="btn  submit-btn btn-success" @click="advanceStep">
-          <span v-if="max_step == 4">Enregistrer</span>
-          <span v-else>Suivant</span>
+        <button class="btn  submit-btn btn-success" @click="advanceStep">
+          <span v-if="max_step == 4 && !success">Enregistrer</span>
+          <span v-else-if="max_step < 4">Suivant</span>
+          <span v-else-if="success">Modifier</span>
         </button>
         <br />
       </div>
     </div>
+    <div class="card big-card">
+      <div class="row">
+        <button
+          class="btn  print-btn pull-left "
+          :class="{ disabled: !success }"
+          @click="print"
+          style="width:20%"
+        >
+          <span>Imprimer Mon Cv</span>
+        </button>
+        <button
+          class="btn  delete-btn btn-secondary pull-right "
+          style="width:20%"
+          :class="{ disabled: !success }"
+          @click="deleteCV"
+        >
+          <span>Supprimer Mon Cv</span>
+        </button>
+      </div>
+    </div>
+    <br /><br /><br />
+    <Footer></Footer>
   </div>
-
-  <!-- <Footer></Footer> -->
 </template>
 <script>
 import CandidateNavbar from "@/components/Navbars/CandidateNavbar.vue";
@@ -358,17 +403,28 @@ import AddDegree from "../../components/Cv/AddDegree.vue";
 import AddProject from "../../components/Cv/AddProject.vue";
 import AddCompetence from "../../components/Cv/AddCompetence.vue";
 import ApiService from "../../services/api.service";
-/* import Footer from "@/components/Footer.vue"; */
+import Footer from "@/components/Footer.vue";
 export default {
   name: "Cv",
   components: {
     CandidateNavbar,
+    Footer,
     AddDegree,
     AddProject,
     AddCompetence,
   },
   data() {
     return {
+      coord: {
+        first_name: "",
+        last_name: "",
+        email: localStorage.email,
+        gender: "",
+        mobile_number: "",
+        nationality: "",
+        date_of_birth: "",
+        motivation: "",
+      },
       degrees: [
         {
           degree_title: "",
@@ -396,11 +452,30 @@ export default {
       ],
       languages: [{ language: "" }],
       qualities: [{ quality: "" }],
+
       current_step: 1,
       max_step: 1,
       erros: [],
       success: false,
     };
+  },
+  mounted() {
+    ApiService.get(this.$appUrl + "/api/candidate/get-candidate")
+      .then((response) => {
+        this.coord = response.data.candidate
+        this.coord.email = response.data.email
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    if (localStorage.getItem("degrees")) {
+      this.degrees = JSON.parse(localStorage.getItem("degrees"));
+    }
+    if (localStorage.success) {
+      this.success = localStorage.success;
+    }
   },
   methods: {
     advanceStep() {
@@ -412,7 +487,7 @@ export default {
         this.max_step = this.current_step;
       }
     },
-   
+
     goToStep(value) {
       this.current_step = value;
     },
@@ -515,21 +590,39 @@ export default {
       const data = {
         degrees: this.degrees,
         projects: this.projects,
-      /*   token: this.$store.token, */
-     
-      }
-      
-        ApiService.post(this.$appUrl + "/api/candidate/store-cv", data)
-        .then((response) => {
-        
-          console.log(response);
+        /*   token: this.$store.token, */
+      };
+
+      ApiService.post(this.$appUrl + "/api/candidate/store-cv", data)
+        .then(() => {
+          localStorage.setItem("degrees", JSON.stringify(this.degrees));
+          this.success = true;
+          localStorage.success = this.success;
+          this.$toast.success("Votre cv a été bien enregistré!");
         })
         .catch((dddd, error) => {
           console.log(error);
         });
     },
+    print() {
+      window.print();
+    },
+    deleteCV() {
+      this.degrees = [
+        {
+          degree_title: "",
+          organism: "",
+          organism_city: "",
+          degree_start_date: "",
+          degree_end_date: "",
+          degree_description: "",
+        },
+      ];
+      localStorage.removeItem("degrees");
+      this.success = false;
+      this.$toast.info("Votre cv a été supprimé!");
+    },
   },
-  mounted() {},
 };
 </script>
 
@@ -549,4 +642,22 @@ export default {
 /* .shadow-danger{
  color: #dc143c;
 } */
+.print-btn {
+  margin-bottom: 1%;
+  margin-top: 1%;
+  margin-left: 2.5%;
+  background-color: #dc143c;
+  color: white;
+}
+.delete-btn {
+  margin-bottom: 1%;
+  margin-right: 0%;
+  margin-left: 55%;
+  margin-top: 1%;
+}
+hr {
+  display: block;
+  margin: auto;
+  width: 90%;
+}
 </style>

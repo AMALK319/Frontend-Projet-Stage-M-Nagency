@@ -1,34 +1,60 @@
 <template>
-  <nav class="navbar navigation navbar-expand-lg ">
+  <nav class="navbar navbar-expand-lg navbar-light navigation">
     <div class="container-fluid">
       <a class="navbar-brand navlink" href="/">Logo</a>
-
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item" id="acceuil">
+          <li class="nav-item">
             <a
               class="nav-link navlink"
               aria-current="page"
-              href="#"
-              
+              href="/enterprise/home"
+              style="color:white"
               >Acceuil</a
             >
           </li>
-          <li class="nav-item" id="cv">
-            <a
-              class="nav-link navlink"
-              href=""
-             
-              >Spécialités</a
-            >
-          </li>
-          <li class="nav-item" id="cv">
-            <a
-              class="nav-link navlink"
-              href=""
-            
+          <li class="nav-item">
+            <a class="nav-link navlink" href="" style="color:white"
               >Nos Tarifs</a
             >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link navlink" href="/enterprise/candidats" style="color:white"
+              >Nos Candidats</a
+            >
+          </li>
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link navlink dropdown-toggle"
+              href="#"
+              id="navbarDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+              style="color:white"
+            >
+              Spécialités
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <div v-for="(category, index) in categories" :key="index.$key">
+                <li>
+                  <a class="dropdown-item" href="#">
+                    {{ category.category_name }}</a
+                  >
+                </li>
+              </div>
+            </ul>
           </li>
         </ul>
         <div class="d-flex">
@@ -39,12 +65,6 @@
             data-toggle="tooltip"
             title="Tap to search "
           >
-           
-           <!--  <span
-              class="iconify"
-              data-icon="ion:search-circle"
-              style="color: white; font-size: 28px"
-            ></span> -->
             <i class="bi bi-search" style="font-size: 20px"></i>
           </a>
 
@@ -57,31 +77,24 @@
           >
             <i class="bi bi-envelope-fill" style="font-size: 20px"></i>
           </a>
+
           <a
             class="nav-link navlink dropdown-toggle"
-             
-            id="navbarDropdownMenuLink"
+            href="#"
+            id="navbarDropdown"
             role="button"
-            data-mdb-toggle="dropdown"
+            data-bs-toggle="dropdown"
             aria-expanded="false"
+            style="color:white"
           >
-            <i class="bi bi-person-circle" style="font-size: 20px"></i> 
+            <i class="bi bi-person-circle" style="font-size: 20px"></i>
           </a>
-          <ul
-            class="dropdown-menu dropdown-menu-end"
-            aria-labelledby="navbarDropdownMenuLink"
-          >
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li>
-              <a class="dropdown-item" href="">My profile</a>
+              <a class="dropdown-item" href="#">Action</a>
             </li>
-            <li>
-              <a class="dropdown-item" href="">Settings</a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="">Logout</a>
-            </li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
           </ul>
-          
         </div>
       </div>
     </div>
@@ -89,16 +102,27 @@
 </template>
 
 <script>
+import ApiService from "../../services/api.service";
 export default {
   name: "Navbar",
   data() {
     return {
       hover: false,
+      categories: null,
     };
+  },
+  mounted() {
+    ApiService.get(this.$appUrl + "/api/enterprise/get-categories")
+      .then((response) => {
+        this.categories = response.data.categories;
+        console.log(response.data.categories);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   },
 };
 </script>
-
 
 <style scoped>
 /* #nav {
@@ -109,7 +133,10 @@ export default {
   font-weight: bold;
   color: white;
 }
-.active {
-  color: #00008b;
-}
+
+
+/* lien visité */
+
+/* souris sur le lien */
+
 </style>

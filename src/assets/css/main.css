@@ -5,6 +5,10 @@ body{
 .navigation {
   background-color: #DC143C;
 }
+
+/* .footer{
+  background-color: #DC143C;
+} */
 .forgot-password,
 .forgot-password a {
   text-align: right;
@@ -106,11 +110,7 @@ label {
   margin-bottom: 1%;
   min-width: 12%;
 }
-hr {
-  display: block;
-  margin: auto;
-  width: 90%;
-}
+
 a:link {
   color: #ccc;
 }
@@ -124,7 +124,7 @@ a:hover {
 }
 /* lien sélécté */
 .icon {
-  text-align: center;
+ 
   font-size: 50px;
 }
 
