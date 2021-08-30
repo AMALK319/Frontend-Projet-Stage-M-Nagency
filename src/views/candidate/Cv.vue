@@ -66,7 +66,9 @@
                       type="text"
                       autofocus="autofocus"
                       class="form-control"
+                      v-model="coord.first_name"
                       aria-label=" "
+                      placeholder=""
                     />
                   </div>
                   <div class="col-6">
@@ -75,6 +77,7 @@
                       type="text"
                       autofocus="autofocus"
                       class="form-control"
+                      v-model="coord.last_name"
                       aria-label=" "
                     />
                   </div>
@@ -90,6 +93,7 @@
                       autofocus="autofocus"
                       class="form-control"
                       aria-label=" "
+                      v-model="coord.email"
                     />
                   </div>
                   <div class="col-6">
@@ -101,6 +105,7 @@
                       autofocus="autofocus"
                       class="form-control"
                       aria-label=" "
+                      v-model="coord.mobile_number"
                     />
                   </div>
                 </div>
@@ -115,6 +120,7 @@
                   autofocus="autofocus"
                   class="form-control"
                   aria-label=" "
+                  v-model="coord.gender"
                 >
                   <option selected>Mme</option>
                   <option value="1">Mr</option>
@@ -128,6 +134,7 @@
                   autofocus="autofocus"
                   class="form-control"
                   aria-label=" "
+                  v-model="coord.nationality"
                 />
               </div>
             </div>
@@ -141,6 +148,7 @@
                   autofocus="autofocus"
                   class="form-control"
                   aria-label=" "
+                  v-model="coord.date_of_birth"
                 />
               </div>
               <div class="col-6">
@@ -150,12 +158,29 @@
                   autofocus="autofocus"
                   class="form-control"
                   aria-label=" "
+                  v-model="coord.speciality"
                 >
-                  <option selected>Développement Full-Stack</option>
-                  <option value="1">Réseaux et Télécommunicatons</option>
-                  <option value="1">Data</option>
-                  <option value="1">Cloud</option>
+                  <option selected>Cloud</option>
+                  <option value="1">Réseaux et Télécommunications</option>
+                  <option value="2">Data</option>
+                  <option value="3">Cloud</option>
                 </select>
+              </div>
+            </div>
+            <br />
+            <div class="row">
+              <div class="col-12">
+                <label for="motivation" class="control-label"
+                  >Motivation:</label
+                >
+                <textarea
+                  id="motivation"
+                  type="text-area"
+                  autofocus="autofocus"
+                  class="form-control"
+                  v-model="coord.motivation"
+                  aria-label=" "
+                ></textarea>
               </div>
             </div>
           </div>
@@ -326,31 +351,35 @@
 
           <!--   quality -->
         </div>
-        <button
-          class="btn"
-          :class="{
-            'btn-success': success,
-            'btn-suc': success,
-            'submit-btn': prepare,
-          }"
-          @click="advanceStep"
-        >
-          <span v-if="max_step == 4"
-            >Enregistrer
-            <i class="bi bi-save" style="color: white; font-size: 90%"></i
-          ></span>
-          <span v-else
-            >Suivant
-            <i
-              class="bi bi-arrow-right-circle"
-              style="color: white; font-size: 90%"
-            ></i
-          ></span>
+        <button class="btn  submit-btn btn-success" @click="advanceStep">
+          <span v-if="max_step == 4 && !success">Enregistrer</span>
+          <span v-else-if="max_step < 4">Suivant</span>
+          <span v-else-if="success">Modifier</span>
         </button>
         <br />
       </div>
     </div>
-    <br />
+    <div class="card big-card">
+      <div class="row">
+        <button
+          class="btn  print-btn pull-left "
+          :class="{ disabled: !success }"
+          @click="print"
+          style="width:20%"
+        >
+          <span>Imprimer Mon Cv</span>
+        </button>
+        <button
+          class="btn  delete-btn btn-secondary pull-right "
+          style="width:20%"
+          :class="{ disabled: !success }"
+          @click="deleteCV"
+        >
+          <span>Supprimer Mon Cv</span>
+        </button>
+      </div>
+    </div>
+    <br /><br /><br />
     <Footer></Footer>
   </div>
 </template>
@@ -372,6 +401,17 @@ export default {
   },
   data() {
     return {
+      coord: {
+        first_name: "",
+        last_name: "",
+        email: localStorage.email,
+        gender: "",
+        mobile_number: "",
+        nationality: "",
+        date_of_birth: "",
+        motivation: "",
+        speciality:"",
+      },
       degrees: [
         {
           degree_title: "",
@@ -399,6 +439,7 @@ export default {
       ],
       languages: [{ language: "" }],
       qualities: [{ quality: "" }],
+
       current_step: 1,
       max_step: 1,
       erros: [],
@@ -406,11 +447,22 @@ export default {
       prepare: true,
     };
   },
-
   mounted() {
-    if (localStorage.getItems("degrees") && localStorage.getItems("projects")) {
+    ApiService.get(this.$appUrl + "/api/candidate/get-candidate")
+      .then((response) => {
+        this.coord = response.data.candidate
+        this.coord.email = response.data.email
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    if (localStorage.getItem("degrees")) {
       this.degrees = JSON.parse(localStorage.getItem("degrees"));
-      this.projects = JSON.parse(localStorage.getItem("projects"));
+    }
+    if (localStorage.success) {
+      this.success = localStorage.success;
     }
   },
   methods: {
@@ -528,22 +580,49 @@ export default {
       const data = {
         degrees: this.degrees,
         projects: this.projects,
-        competences: this.competences,
+        first_name : this.coord.first_name,
+        last_name : this.coord.last_name,
+        email : this.coord.email,
+        gender : this.coord.gender,
+        mobile_number : this.coord.mobile_number,
+        date_of_birth : this.coord.date_of_birth,
+        nationality : this.coord.nationality,
+        speciality : this.coord.speciality,
+        motivation: this.coord.motivation,
+        competences:  this.competences,
         languages: this.languages,
         qualities: this.qualities,
         /*   token: this.$store.token, */
       };
 
       ApiService.post(this.$appUrl + "/api/candidate/store-cv", data)
-        .then((response) => {
-          console.log(response);
-          
-          localStorage.setItem("degrees" , JSON.stringify(this.degrees));
-         /*  localStorage.setItem("projects"); */
+        .then(() => {
+          localStorage.setItem("degrees", JSON.stringify(this.degrees));
+          this.success = true;
+          localStorage.success = this.success;
+          this.$toast.success("Votre cv a été bien enregistré!");
         })
         .catch((error) => {
           console.log(error);
         });
+    },
+    print() {
+      window.print();
+    },
+    deleteCV() {
+      this.degrees = [
+        {
+          degree_title: "",
+          organism: "",
+          organism_city: "",
+          degree_start_date: "",
+          degree_end_date: "",
+          degree_description: "",
+        },
+      ];
+      localStorage.removeItem("degrees");
+      this.success = false;
+      this.$toast.info("Votre cv a été supprimé!");
     },
   },
 };
@@ -568,4 +647,22 @@ a:hover {
 /* .shadow-danger{
  color: #dc143c;
 } */
+.print-btn {
+  margin-bottom: 1%;
+  margin-top: 1%;
+  margin-left: 2.5%;
+  background-color: #dc143c;
+  color: white;
+}
+.delete-btn {
+  margin-bottom: 1%;
+  margin-right: 0%;
+  margin-left: 55%;
+  margin-top: 1%;
+}
+hr {
+  display: block;
+  margin: auto;
+  width: 90%;
+}
 </style>

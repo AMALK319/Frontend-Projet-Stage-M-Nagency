@@ -14,6 +14,9 @@ export default new Vuex.Store({
         space_name: '',
         token: JwtService.getToken().token || '',
         pre_loader: false,
+     
+        
+       
        
       },
       actions: {
@@ -28,10 +31,13 @@ export default new Vuex.Store({
                     user: response.data.user[0],
                     space_name: response.data.space_name,
                     token: response.data.token,
+                
+                  
                   };
                   JwtService.setToken(token, space);
                   ApiService.setHeader();
                   commit('auth_success', { payload });
+                  console.log(response.data.user.email);
                   resolve(response);
                 })
                 .catch(error => {

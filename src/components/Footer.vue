@@ -1,10 +1,10 @@
 <template>
-  <footer class="bg-light text-center text-lg-start">
-       <!-- Grid container 
+  <footer class="bg-light fixed-bottom text-center text-lg-start margin">
+    <!-- Grid container 
     <div class="cont p-4">
-    
+  
       <div class="row">
-       
+   
         <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
           <h5  class=" blue">Footer text</h5>
 
@@ -15,7 +15,8 @@
             sint!
           </p>
         </div>
-        
+   
+       
         <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
           <h5 class=" mb-0 blue " >Retrouvez-nous sur :</h5>
 
@@ -35,14 +36,14 @@
             </li>
           </ul>
         </div>
-     
+   
       </div>
-     
-    </div> -->
-    <!-- Grid container -->
+   
+    </div>
+  Grid container -->
 
     <!-- Copyright -->
-    <div class="text-center text-light p-3" style="background-color: #DC143C">
+    <div class="text-center text-light p-3" style="background-color:#c2032a">
       © 2020 Copyright:
       <a class="text-light" href="https://mdbootstrap.com/">MDBootstrap.com</a>
     </div>
@@ -61,6 +62,8 @@ export default {};
   width: auto;
   padding: O;
 }
+
+
 .bi{
   padding-right: 2%;
 }
