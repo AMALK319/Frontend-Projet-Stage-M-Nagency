@@ -42,7 +42,7 @@
 
           <a
             class="nav-link navlink nav-link-icon"
-            href=""
+            href="/candidate/conversations"
             target="_blank"
             data-toggle="tooltip"
             title=""

@@ -1,10 +1,10 @@
 <template>
   <footer class="bg-light text-center text-lg-start">
-    <!-- Grid container -->
+       <!-- Grid container 
     <div class="cont p-4">
-      <!--Grid row-->
+    
       <div class="row">
-        <!--Grid column-->
+       
         <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
           <h5  class=" blue">Footer text</h5>
 
@@ -15,9 +15,7 @@
             sint!
           </p>
         </div>
-        <!--Grid column-->
-
-        <!--Grid column-->
+        
         <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
           <h5 class=" mb-0 blue " >Retrouvez-nous sur :</h5>
 
@@ -37,10 +35,10 @@
             </li>
           </ul>
         </div>
-        <!--Grid column-->
+     
       </div>
-      <!--Grid row-->
-    </div>
+     
+    </div> -->
     <!-- Grid container -->
 
     <!-- Copyright -->

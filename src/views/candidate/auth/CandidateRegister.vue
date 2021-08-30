@@ -153,8 +153,8 @@ export default {
           console.log(response);
           this.erros = [];
           this.success = true;
-          /*      let token = response.data.user.api_token;
-          localStorage.setItem("token", token); */
+          this.$toast.success("Veuillez consulter le mail envoyé pour confirmer votre e-mail!")
+          
         })
         .catch((error) => {
           this.erros = error.response.data.errors;

@@ -92,13 +92,20 @@ label {
   margin-bottom: 1%;
 }
 .submit-btn {
- /*  background-color: #dc143c;
-  color: white; */
+  background-color: #dc143c;
+  color: white;
   margin-right: 2.5%;
   margin-bottom: 1%;
   display: block;
   margin: auto; 
-  min-width: 16%;
+  min-width: 16%; 
+}
+.btn-suc{
+  
+  margin-bottom: 1%;
+  display: block;
+  margin: auto; 
+  
 }
 .btn-complete {
   color: white;

@@ -171,13 +171,10 @@
             <add-degree :degree="degree" />
 
             <button
-              class="btn  btn-sm btn-complete add-btn pull-right"
+              class="btn btn-sm btn-complete add-btn pull-right"
               @click="addNewDegree('degree')"
             >
-              <i
-                class="bi bi-plus-lg "
-                style="color: white; font-size: 80%"
-              ></i>
+              <i class="bi bi-plus-lg" style="color: white; font-size: 80%"></i>
               Ajouter Formation
             </button>
             <button
@@ -201,12 +198,9 @@
 
             <button
               @click="addNewDegree('project')"
-              class="btn  btn-sm btn-complete add-btn pull-right"
+              class="btn btn-sm btn-complete add-btn pull-right"
             >
-              <i
-                class="bi bi-plus-lg "
-                style="color: white; font-size: 80%"
-              ></i>
+              <i class="bi bi-plus-lg" style="color: white; font-size: 80%"></i>
               Ajouter Projet Académique
             </button>
             <button
@@ -233,12 +227,9 @@
 
             <button
               @click="addNewDegree('competence')"
-              class="btn  btn-sm btn-complete add-btn pull-right"
+              class="btn btn-sm btn-complete add-btn pull-right"
             >
-              <i
-                class="bi bi-plus-lg "
-                style="color: white; font-size: 80%"
-              ></i>
+              <i class="bi bi-plus-lg" style="color: white; font-size: 80%"></i>
               Ajouter Compétence
             </button>
             <button
@@ -276,12 +267,9 @@
             <br />
             <button
               @click="addNewDegree('language')"
-              class="btn  btn-sm btn-complete add-btn pull-right"
+              class="btn btn-sm btn-complete add-btn pull-right"
             >
-              <i
-                class="bi bi-plus-lg "
-                style="color: white; font-size: 80%"
-              ></i>
+              <i class="bi bi-plus-lg" style="color: white; font-size: 80%"></i>
               Ajouter Langue
             </button>
             <button
@@ -309,7 +297,7 @@
                     id="quality"
                     type="text-area"
                     autofocus="autofocus"
-                    class="form-control  bg-light"
+                    class="form-control bg-light"
                     aria-label=" "
                     v-model="quality.quality"
                   />
@@ -320,12 +308,9 @@
             <br />
             <button
               @click="addNewDegree('quality')"
-              class="btn  btn-sm btn-complete add-btn pull-right"
+              class="btn btn-sm btn-complete add-btn pull-right"
             >
-              <i
-                class="bi bi-plus-lg "
-                style="color: white; font-size: 80%"
-              ></i>
+              <i class="bi bi-plus-lg" style="color: white; font-size: 80%"></i>
               Ajouter Qualité
             </button>
             <button
@@ -341,16 +326,33 @@
 
           <!--   quality -->
         </div>
-        <button  class="btn  submit-btn btn-success" @click="advanceStep">
-          <span v-if="max_step == 4">Enregistrer</span>
-          <span v-else>Suivant</span>
+        <button
+          class="btn"
+          :class="{
+            'btn-success': success,
+            'btn-suc': success,
+            'submit-btn': prepare,
+          }"
+          @click="advanceStep"
+        >
+          <span v-if="max_step == 4"
+            >Enregistrer
+            <i class="bi bi-save" style="color: white; font-size: 90%"></i
+          ></span>
+          <span v-else
+            >Suivant
+            <i
+              class="bi bi-arrow-right-circle"
+              style="color: white; font-size: 90%"
+            ></i
+          ></span>
         </button>
         <br />
       </div>
     </div>
+    <br />
+    <Footer></Footer>
   </div>
-
-  <!-- <Footer></Footer> -->
 </template>
 <script>
 import CandidateNavbar from "@/components/Navbars/CandidateNavbar.vue";
@@ -358,11 +360,12 @@ import AddDegree from "../../components/Cv/AddDegree.vue";
 import AddProject from "../../components/Cv/AddProject.vue";
 import AddCompetence from "../../components/Cv/AddCompetence.vue";
 import ApiService from "../../services/api.service";
-/* import Footer from "@/components/Footer.vue"; */
+import Footer from "@/components/Footer.vue";
 export default {
   name: "Cv",
   components: {
     CandidateNavbar,
+    Footer,
     AddDegree,
     AddProject,
     AddCompetence,
@@ -400,11 +403,21 @@ export default {
       max_step: 1,
       erros: [],
       success: false,
+      prepare: true,
     };
+  },
+
+  mounted() {
+    if (localStorage.getItems("degrees") && localStorage.getItems("projects")) {
+      this.degrees = JSON.parse(localStorage.getItem("degrees"));
+      this.projects = JSON.parse(localStorage.getItem("projects"));
+    }
   },
   methods: {
     advanceStep() {
       if (this.max_step == 4) {
+        this.success = true;
+        this.prepare = false;
         return this.save();
       }
       this.current_step++;
@@ -412,7 +425,7 @@ export default {
         this.max_step = this.current_step;
       }
     },
-   
+
     goToStep(value) {
       this.current_step = value;
     },
@@ -515,21 +528,24 @@ export default {
       const data = {
         degrees: this.degrees,
         projects: this.projects,
-      /*   token: this.$store.token, */
-     
-      }
-      
-        ApiService.post(this.$appUrl + "/api/candidate/store-cv", data)
+        competences: this.competences,
+        languages: this.languages,
+        qualities: this.qualities,
+        /*   token: this.$store.token, */
+      };
+
+      ApiService.post(this.$appUrl + "/api/candidate/store-cv", data)
         .then((response) => {
-        
           console.log(response);
+          
+          localStorage.setItem("degrees" , JSON.stringify(this.degrees));
+         /*  localStorage.setItem("projects"); */
         })
-        .catch((dddd, error) => {
+        .catch((error) => {
           console.log(error);
         });
     },
   },
-  mounted() {},
 };
 </script>
 
@@ -545,6 +561,9 @@ export default {
   margin-top: 2%;
 
   height: auto;
+}
+a:hover {
+  color: #dc143c;
 }
 /* .shadow-danger{
  color: #dc143c;
