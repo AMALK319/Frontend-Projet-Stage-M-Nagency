@@ -12,6 +12,7 @@
             class="form-control"
             v-model="degree.degree_title"
             aria-label=" "
+            required
           />
         </div>
       </div>
@@ -26,6 +27,7 @@
             class="form-control"
             v-model="degree.organism"
             aria-label=" "
+            required
           />
         </div>
         <div class="col-6">
@@ -53,6 +55,7 @@
             class="form-control"
             v-model="degree.degree_start_date"
             aria-label=" "
+            required
           />
         </div>
         <div class="col-6">
@@ -64,7 +67,13 @@
             class="form-control"
             v-model="degree.degree_end_date"
             aria-label=" "
-          />
+            :class="{
+                'border-danger': hasError,
+                'text-danger': hasError,
+                
+              }"
+            required
+          /><span class="text-danger" v-if="erreur">{{ erreur }}</span>
         </div>
       </div>
       <br />
@@ -98,6 +107,8 @@
 export default {
   props: {
     degree : Object,
+    hasError : Boolean,
+    erreur : String,
   },
   methods: {
     

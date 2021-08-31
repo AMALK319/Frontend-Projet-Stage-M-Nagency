@@ -11,6 +11,7 @@
             class="form-control bg-light"
             v-model="competence.competence"
             aria-label=" "
+            required
           />
         </div>
       </div>

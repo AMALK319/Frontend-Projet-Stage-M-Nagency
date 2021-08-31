@@ -109,6 +109,7 @@ label {
   margin-bottom: 1%;
   display: block;
   margin: auto; 
+  min-width: 16%; 
   
 }
 .btn-complete {

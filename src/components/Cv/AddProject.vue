@@ -11,6 +11,7 @@
                   class="form-control"
                   v-model="project.project_title"
                   aria-label=" "
+                  required
                 />
               </div>
             </div>
@@ -43,6 +44,7 @@
                   class="form-control"
                   v-model="project.project_start_date"
                   aria-label=" "
+                  required
                 />
               </div>
               <div class="col-6">
@@ -56,6 +58,7 @@
                   class="form-control"
                   v-model="project.project_end_date"
                   aria-label=" "
+                  required
                 />
               </div>
             </div>

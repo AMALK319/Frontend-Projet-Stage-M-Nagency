@@ -193,7 +193,11 @@
           <!--    formation -->
           <h5><i class="bi bi-book"></i> Formations</h5>
           <div v-for="(degree, index) in degrees" :key="index.$key">
-            <add-degree :degree="degree" />
+            <add-degree
+              :degree="degree"
+              :hasError="hasError"
+              :erreur="erreur"
+            />
 
             <button
               class="btn btn-sm btn-complete add-btn pull-right"
@@ -284,6 +288,7 @@
                     class="form-control bg-light"
                     aria-label=" "
                     v-model="language.language"
+                    required
                   />
                 </div>
               </div>
@@ -325,6 +330,7 @@
                     class="form-control bg-light"
                     aria-label=" "
                     v-model="quality.quality"
+                    required
                   />
                 </div>
               </div>
@@ -351,7 +357,11 @@
 
           <!--   quality -->
         </div>
-        <button class="btn  submit-btn btn-success" @click="advanceStep">
+        <button
+          class="btn btn-suc  "
+          :class="{ 'btn-success': success, 'submit-btn': prepare }"
+          @click="advanceStep"
+        >
           <span v-if="max_step == 4 && !success">Enregistrer</span>
           <span v-else-if="max_step < 4">Suivant</span>
           <span v-else-if="success">Modifier</span>
@@ -390,6 +400,7 @@ import AddProject from "../../components/Cv/AddProject.vue";
 import AddCompetence from "../../components/Cv/AddCompetence.vue";
 import ApiService from "../../services/api.service";
 import Footer from "@/components/Footer.vue";
+
 export default {
   name: "Cv",
   components: {
@@ -410,7 +421,7 @@ export default {
         nationality: "",
         date_of_birth: "",
         motivation: "",
-        speciality:"",
+        speciality: "",
       },
       degrees: [
         {
@@ -443,6 +454,8 @@ export default {
       current_step: 1,
       max_step: 1,
       erros: [],
+      hasError: false,
+      erreur: "",
       success: false,
       prepare: true,
     };
@@ -450,8 +463,8 @@ export default {
   mounted() {
     ApiService.get(this.$appUrl + "/api/candidate/get-candidate")
       .then((response) => {
-        this.coord = response.data.candidate
-        this.coord.email = response.data.email
+        this.coord = response.data.candidate;
+        this.coord.email = response.data.email;
         console.log(response);
       })
       .catch((error) => {
@@ -580,16 +593,16 @@ export default {
       const data = {
         degrees: this.degrees,
         projects: this.projects,
-        first_name : this.coord.first_name,
-        last_name : this.coord.last_name,
-        email : this.coord.email,
-        gender : this.coord.gender,
-        mobile_number : this.coord.mobile_number,
-        date_of_birth : this.coord.date_of_birth,
-        nationality : this.coord.nationality,
-        speciality : this.coord.speciality,
+        first_name: this.coord.first_name,
+        last_name: this.coord.last_name,
+        email: this.coord.email,
+        gender: this.coord.gender,
+        mobile_number: this.coord.mobile_number,
+        date_of_birth: this.coord.date_of_birth,
+        nationality: this.coord.nationality,
+        speciality: this.coord.speciality,
         motivation: this.coord.motivation,
-        competences:  this.competences,
+        competences: this.competences,
         languages: this.languages,
         qualities: this.qualities,
         /*   token: this.$store.token, */
@@ -599,10 +612,16 @@ export default {
         .then(() => {
           localStorage.setItem("degrees", JSON.stringify(this.degrees));
           this.success = true;
+          this.erreur = [];
           localStorage.success = this.success;
           this.$toast.success("Votre cv a été bien enregistré!");
         })
         .catch((error) => {
+          this.success = false;
+          this.prepare = true;
+          this.erreur = error.response.data.message;
+          (this.hasError = true), (this.success = false);
+          this.$toast.error("Votre cv n'a pas été enregistré! Veuillez entrer vos données correctement.");
           console.log(error);
         });
     },
@@ -621,7 +640,9 @@ export default {
         },
       ];
       localStorage.removeItem("degrees");
+      localStorage.removeItem("success");
       this.success = false;
+      this.prepare = true;
       this.$toast.info("Votre cv a été supprimé!");
     },
   },

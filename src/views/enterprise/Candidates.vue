@@ -54,7 +54,7 @@
                 <p><i class="bi bi-geo-alt"></i> Localisation</p>
                 <div class="row">
                   <div class="col-6">
-                    <button class="btn btn-sm btn-success btn-card " @click="voir('d96a881d-41cb-449d-853f-a39a648a9b8c')">
+                    <button class="btn btn-sm btn-success btn-card " @click="voir(candidate.token)">
                       <i class="bi bi-eye-fill"></i> Voir Cv
                     </button>
                   </div>
@@ -115,10 +115,11 @@ export default {
   },
   methods:{
       voir(token){
-      this.token = token;
-      ApiService.get( this.$appUrl+"/api/enterprise/get-candidate/" + this.token)
+      ApiService.get( this.$appUrl+"/api/enterprise/get-candidate/" + token)
       .then((response) => {
+        this.$router.push("/enterprise/candidate/" + token);
         console.log(response);
+
       })
       .catch((error) => console.log(error));
       },

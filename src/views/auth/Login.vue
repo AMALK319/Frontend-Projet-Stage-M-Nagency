@@ -114,7 +114,7 @@ export default {
   },
 
   methods: {
-    error() {},
+    
 
     loginIt() {
       this.$store
