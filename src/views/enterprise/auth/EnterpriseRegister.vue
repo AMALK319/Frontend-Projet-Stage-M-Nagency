@@ -114,10 +114,7 @@
           </div>
         </div>
         <br />
-        <span v-if="success" class="text-success" :class="['label label-success']"
-          >Veuillez consulter le mail envoyé pour confirmer votre e-mail!</span
-        >
-        <br>
+       
         <button
           type="submit"
           class="btn  btn-md btn-block pull-right"
@@ -174,8 +171,7 @@ export default {
           console.log(response);
           this.erros = [];
           this.success = true;
-          /*      let token = response.data.user.api_token;
-          localStorage.setItem("token", token); */
+           this.$toast.success("Veuillez consulter le mail envoyé pour confirmer votre e-mail!")
         })
         .catch((error) => {
           this.erros = error.response.data.errors;

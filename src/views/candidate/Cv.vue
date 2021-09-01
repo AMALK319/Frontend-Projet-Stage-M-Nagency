@@ -461,15 +461,15 @@ export default {
     };
   },
   mounted() {
-    ApiService.get(this.$appUrl + "/api/candidate/get-candidate")
+   /*  ApiService.get(this.$appUrl + "/api/candidate/get-candidate")
       .then((response) => {
         this.coord = response.data.candidate;
-        this.coord.email = response.data.email;
-        console.log(response);
+       
+        console.log(this.coord);
       })
       .catch((error) => {
         console.log(error);
-      });
+      }); */
 
     if (localStorage.getItem("degrees")) {
       this.degrees = JSON.parse(localStorage.getItem("degrees"));

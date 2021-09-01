@@ -1,5 +1,5 @@
 <template>
-  <footer class="bg-light fixed-bottom text-center text-lg-start margin">
+  <footer class="bg-light fixed text-center text-lg-start margin">
     <!-- Grid container 
     <div class="cont p-4">
   

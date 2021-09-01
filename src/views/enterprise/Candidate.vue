@@ -3,39 +3,45 @@
     <div id="navigation">
       <enterprise-navbar></enterprise-navbar>
     </div>
-    <br /><br />
+    <!--   <br /><br /><br> -->
     <div class="container">
+      <h1 class="text-center">
+        Cv de {{ candidate.first_name }}.{{ candidate.last_name[0] }}
+      </h1>
+
       <div class="card shadow shadow-danger shadow-intensity-md big-card">
         <div class="row">
           <div class="col-5">
-            <br />
             <img
               class="rounded-circle center"
-              style="max-width:50%; max-height:50%"
+              style="max-width: 50%; max-height: 50%"
               src="../../assets/photo.jpg"
               alt=""
             />
-            <br />
-            <h2 class="text-center">
+
+            <!--  <h2 class="text-center">
               Cv de {{ candidate.first_name }}.{{ candidate.last_name[0] }}
-            </h2>
+            </h2> -->
             <br />
             <div class="contact">
               <div class="contact-flex">
-                <i class="bi bi-briefcase-fill"></i>
+                <p><i class="bi bi-briefcase"></i></p>
+                <p>Développeur Web</p>
+              </div>
+              <br />
+              <div class="contact-flex">
+                <p><i class="bi bi-geo-alt"></i></p>
                 <p></p>
               </div>
               <br />
               <div class="contact-flex">
-                <i class="bi bi-geo-alt"></i>
-                <p></p>
-              </div>
-              <br />
-              <div class="contact-flex">
-                <i class="bi bi-calendar2-date"></i>
+                <p><i class="bi bi-calendar2-date"></i></p>
                 <p></p>
               </div>
             </div>
+            <a href="#" class="btn btn-md btn-start">
+              <i class="bi bi-chat-dots-fill"></i> Contactez</a
+            >
           </div>
 
           <div class="col-7">
@@ -43,7 +49,7 @@
               <h5>
                 <i class="bi bi-book"></i> Formations
                 <i
-                  class="bi bi-sty  pull-right"
+                  class="bi bi-sty pull-right"
                   :class="{
                     'bi-arrow-down-circle-fill': !toggleDegree,
                     'bi-arrow-up-circle-fill': toggleDegree,
@@ -56,7 +62,7 @@
             <div class="card cont-card" v-show="toggleDegree">
               <div v-for="(degree, index) in degrees" :key="index.$key">
                 <div class="row">
-                  <h6 style="font-weight:bold">
+                  <h6 style="font-weight: bold">
                     {{ degree.degree_title }}
                     <div class="dates pull-right">
                       <span
@@ -68,7 +74,7 @@
                   <div class="row">
                     <span
                       class="pull-right"
-                      style="color:grey; font-size:medium;"
+                      style="color: grey; font-size: medium"
                       >{{ degree.organism }}, {{ degree.organism_city }}</span
                     >
                   </div>
@@ -87,7 +93,7 @@
               <h5>
                 <i class="bi bi-kanban"></i> Projets Académiques
                 <i
-                  class="bi bi-sty  pull-right"
+                  class="bi bi-sty pull-right"
                   :class="{
                     'bi-arrow-down-circle-fill': !toggleProject,
                     'bi-arrow-up-circle-fill': toggleProject,
@@ -99,7 +105,7 @@
             <div class="card cont-card" v-show="toggleProject">
               <div v-for="(project, index) in projects" :key="index.$key">
                 <div class="row">
-                  <h6 style="font-weight:bold">
+                  <h6 style="font-weight: bold">
                     {{ project.project_title }}
                     <div class="dates pull-right">
                       <span
@@ -122,10 +128,9 @@
               <h5>
                 <i class="bi bi-briefcase"></i> Expériences Professionnelles
                 <i
-                  class="bi bi-sty  pull-right"
+                  class="bi bi-sty pull-right"
                   :class="{
-                    'bi-arrow-down-circle-fill': !up,
-                    'bi-arrow-up-circle-fill': up,
+                  
                   }"
                   @click="show"
                 ></i>
@@ -136,10 +141,9 @@
               <h5>
                 <i class="bi bi-patch-check"></i> Certifications
                 <i
-                  class="bi bi-sty  pull-right"
+                  class="bi bi-sty pull-right"
                   :class="{
-                    'bi-arrow-down-circle-fill': !up,
-                    'bi-arrow-up-circle-fill': type,
+                   
                   }"
                   @click="show"
                 ></i>
@@ -150,7 +154,7 @@
               <h5>
                 <i class="bi bi-laptop"></i> Compétences
                 <i
-                  class="bi bi-sty  pull-right"
+                  class="bi bi-sty pull-right"
                   :class="{
                     'bi-arrow-down-circle-fill': !toggleCompetence,
                     'bi-arrow-up-circle-fill': toggleCompetence,
@@ -165,9 +169,9 @@
                   :key="index.$key"
                 >
                   <div class="row">
-                    <li style="font-weight:bold ; color:rgb(70, 69, 69);">
+                    <li style="font-weight: bold; color: rgb(70, 69, 69)">
                       {{ competence.competence }} :
-                      <span style="font-weight:normal; color:black">{{
+                      <span style="font-weight: normal; color: black">{{
                         competence.competence_description
                       }}</span>
                     </li>
@@ -181,7 +185,7 @@
               <h5>
                 <i class="bi bi-translate"></i> Langues
                 <i
-                  class="bi bi-sty  pull-right"
+                  class="bi bi-sty pull-right"
                   :class="{
                     'bi-arrow-down-circle-fill': !toggleLanguage,
                     'bi-arrow-up-circle-fill': toggleLanguage,
@@ -192,7 +196,7 @@
               <div class="cont" v-show="toggleLanguage">
                 <div v-for="(language, index) in languages" :key="index.$key">
                   <div class="row">
-                    <li style="font-weight:bold ; color:rgb(70, 69, 69);">
+                    <li style="font-weight: bold; color: rgb(70, 69, 69)">
                       {{ language.language }}
                     </li>
                   </div>
@@ -205,7 +209,7 @@
               <h5>
                 <i class="bi bi-clipboard-check"></i> Qualités
                 <i
-                  class="bi bi-sty  pull-right"
+                  class="bi bi-sty pull-right"
                   :class="{
                     'bi-arrow-down-circle-fill': !toggleQuality,
                     'bi-arrow-up-circle-fill': toggleQuality,
@@ -216,7 +220,7 @@
               <div class="cont" v-show="toggleQuality">
                 <div v-for="(quality, index) in qualities" :key="index.$key">
                   <div class="row">
-                    <li style="font-weight:bold  ; color:rgb(70, 69, 69);">
+                    <li style="font-weight: bold; color: rgb(70, 69, 69)">
                       {{ quality.quality }}
                     </li>
                   </div>
@@ -325,10 +329,9 @@ export default {
 </script>
 
 <style scoped>
-/* .container {
-  width: 100%;
-  background-color: #dc143c;
-} */
+.container {
+  margin-top: 6%;
+}
 .big-card {
   width: 95%;
   display: flex;
@@ -337,13 +340,38 @@ export default {
   flex-direction: column;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 2%;
-  padding: 4%;
+  padding: 3%;
   height: auto;
 }
+h1 {
+  font-family: cursive;
+  font-weight: bold;
+  color: #dc143c;
+}
+.btn-start {
+  width: 50%;
+  background-color: #dc143c;
+  color: white;
+  display: block;
+  margin: auto;
+}
+
+.contact-flex {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+}
+
+.contact-flex p:first-child {
+  flex: 0 0 10%;
+}
+
+/* .contact-flex p:last-child {
+  flex: 0 0 60%;
+} */
 .card {
   padding-top: 2%;
-  margin-top: 4%;
+  margin-top: 2%;
 }
 .bi-sty {
   margin-right: 3%;

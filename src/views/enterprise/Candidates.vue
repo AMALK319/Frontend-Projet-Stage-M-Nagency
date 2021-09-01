@@ -47,10 +47,10 @@
               <div class="icon text-center">
                 <i class="fas fa-female"></i>
               </div>
-              <h5 class="card-title text-center">{{ candidate.first_name }}</h5>
+              <h5 class="card-title text-center">{{ candidate.first_name }}.{{ candidate.last_name[0] }}</h5>
               <hr />
               <div class="card-text ">
-                <p><i class="bi bi-briefcase-fill"></i> Spécialité</p>
+                <p><i class="bi bi-briefcase"></i>  Spécialité</p>
                 <p><i class="bi bi-geo-alt"></i> Localisation</p>
                 <div class="row">
                   <div class="col-6">
@@ -141,7 +141,7 @@ hr {
 .btn-card {
   color: white;
   margin-bottom: 1%;
-  width: 90%;
+  width: 100%;
 }
 .btn-contact {
   background-color: #dc143c;

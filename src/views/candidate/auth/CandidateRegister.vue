@@ -94,10 +94,7 @@
         </div>
        
         <br />
-        <span v-if="success" class="text-success" :class="['label label-success']"
-          >Veuillez consulter le mail envoyé pour confirmer votre e-mail!</span
-        >
-        <br>
+       
         <button
           type="submit"
           class="btn  btn-md btn-block pull-right"
