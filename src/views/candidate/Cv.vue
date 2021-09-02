@@ -20,7 +20,7 @@
             :class="{ disabled: max_step < 2, active: current_step == 2 }"
             @click.prevent="goToStep(2)"
             href="#"
-            >Education</a
+            >Spécialité</a
           >
         </li>
         <li class="nav-item">
@@ -29,7 +29,7 @@
             :class="{ disabled: max_step < 3, active: current_step == 3 }"
             @click.prevent="goToStep(3)"
             href="#"
-            >Expériences Professionnelles</a
+            >Education</a
           >
         </li>
         <li class="nav-item">
@@ -37,6 +37,15 @@
             class="nav-link"
             :class="{ disabled: max_step < 4, active: current_step == 4 }"
             @click.prevent="goToStep(4)"
+            href="#"
+            >Expériences Professionnelles</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            :class="{ disabled: max_step < 5, active: current_step == 5 }"
+            @click.prevent="goToStep(5)"
             href="#"
             >Distinctions</a
           >
@@ -152,13 +161,13 @@
                 />
               </div>
               <div class="col-6">
-                <label for="" class="control-label">Spécialité:</label>
+                <label for="" class="control-label">Addresse:</label>
                 <select
                   id=""
                   autofocus="autofocus"
                   class="form-control"
                   aria-label=" "
-                  v-model="coord.speciality"
+                  v-model="coord.address"
                 >
                   <option selected>Cloud</option>
                   <option value="1">Réseaux et Télécommunications</option>
@@ -178,7 +187,7 @@
                   type="text-area"
                   autofocus="autofocus"
                   class="form-control"
-                  v-model="coord.motivation"
+                  v-model="motivation"
                   aria-label=" "
                 ></textarea>
               </div>
@@ -187,9 +196,50 @@
           <br />
         </div>
         <!--   Coordonnées -->
-
+        <div class="speciality" v-show="current_step == 2">
+          <div class="card small-card">
+            <div class="row">
+              <div class="col-4">
+                <label for="" class="control-label">Spécialité 1: </label>
+                <input
+                  id=""
+                  type="text"
+                  autofocus="autofocus"
+                  class="form-control bg-light"
+                  aria-label=" "
+                  v-model="specialities.speciality"
+                  required
+                />
+              </div>
+              <div class="col-4">
+                <label for="" class="control-label">Spécialité 2: </label>
+                <input
+                  id=""
+                  type="text"
+                  autofocus="autofocus"
+                  class="form-control bg-light"
+                  aria-label=" "
+                 
+                 
+                />
+              </div>
+              <div class="col-4">
+                <label for="" class="control-label">Spécialité 3: </label>
+                <input
+                  id=""
+                  type="text"
+                  autofocus="autofocus"
+                  class="form-control bg-light"
+                  aria-label=" "
+            
+                />
+              </div>
+            </div>
+            <br />
+          </div>
+        </div>
         <!--  Education -->
-        <div class="education" v-show="current_step == 2">
+        <div class="education" v-show="current_step == 3">
           <!--    formation -->
           <h5><i class="bi bi-book"></i> Formations</h5>
           <div v-for="(degree, index) in degrees" :key="index.$key">
@@ -223,11 +273,15 @@
           <!--   projet -->
           <h5><i class="bi bi-kanban"></i> Projets Academiques</h5>
           <div v-for="(project, index) in projects" :key="index.$key">
-            <add-project :project="project" />
+            <add-project
+              :project="project"
+              :hasError="hasError"
+              :erreur="erreur"
+            />
 
             <button
-              @click="addNewDegree('project')"
               class="btn btn-sm btn-complete add-btn pull-right"
+              @click="addNewDegree('project')"
             >
               <i class="bi bi-plus-lg" style="color: white; font-size: 80%"></i>
               Ajouter Projet Académique
@@ -240,6 +294,7 @@
               Annuler
             </button>
           </div>
+
           <br /><br />
           <hr />
           <br />
@@ -247,8 +302,8 @@
         </div>
         <!--  Education -->
 
-        <div class="experiences" v-show="current_step == 3"></div>
-        <div class="distinctions" v-show="current_step == 4">
+        <div class="experiences" v-show="current_step == 4"></div>
+        <div class="distinctions" v-show="current_step == 5">
           <!-- Competences -->
           <h5><i class="bi bi-pencil"></i> Compétences</h5>
           <div v-for="(competence, index) in competences" :key="index.$key">
@@ -280,7 +335,7 @@
             <div class="card small-card">
               <div class="row">
                 <div class="col-12">
-                  <label for="" class="control-label">Langue 1:</label>
+                  <label for="" class="control-label">Langue :</label>
                   <input
                     id=""
                     type="text"
@@ -322,7 +377,7 @@
             <div class="card small-card">
               <div class="row">
                 <div class="col-12">
-                  <label for="quality" class="control-label">Qualité 1:</label>
+                  <label for="quality" class="control-label">Qualité :</label>
                   <input
                     id="quality"
                     type="text-area"
@@ -362,8 +417,8 @@
           :class="{ 'btn-success': success, 'submit-btn': prepare }"
           @click="advanceStep"
         >
-          <span v-if="max_step == 4 && !success">Enregistrer</span>
-          <span v-else-if="max_step < 4">Suivant</span>
+          <span v-if="max_step == 5 && !success">Enregistrer</span>
+          <span v-else-if="max_step < 5">Suivant</span>
           <span v-else-if="success">Modifier</span>
         </button>
         <br />
@@ -415,14 +470,15 @@ export default {
       coord: {
         first_name: "",
         last_name: "",
-        email: localStorage.email,
+        email: "",
         gender: "",
         mobile_number: "",
         nationality: "",
         date_of_birth: "",
-        motivation: "",
-        speciality: "",
+        address: "",
       },
+      motivation: "",
+      specialities: [{speciality: ""}],
       degrees: [
         {
           degree_title: "",
@@ -461,21 +517,40 @@ export default {
     };
   },
   mounted() {
-    ApiService.get(this.$appUrl + "/api/candidate/get-candidate")
+    if (localStorage.success) {
+      this.success = localStorage.success;
+    }
+    /* ApiService.get(this.$appUrl + "/api/candidate/get-candidate")
       .then((response) => {
         this.coord = response.data.candidate;
-       
+
         console.log(this.coord);
       })
       .catch((error) => {
         console.log(error);
+      }); */
+    ApiService.get(this.$appUrl + "/api/candidate/show-cv")
+      .then((response) => {
+        if (this.success) {
+          this.coord = response.data.candidate;
+          this.degrees = response.data.degrees;
+          this.projects = response.data.projects;
+          this.competences = response.data.competences;
+          this.qualities = response.data.qualities;
+          this.languages = response.data.languages;
+          this.specialities = response.data.specialities;
+          this.motivation = response.data.motivation.motivation;
+          console.log(response.data);
+        }
+        
+      })
+      .catch((error) => {
+        console.log(error);
       });
-
-    
   },
   methods: {
     advanceStep() {
-      if (this.max_step == 4) {
+      if (this.max_step == 5) {
         this.success = true;
         this.prepare = false;
         return this.save();
@@ -530,6 +605,11 @@ export default {
             quality: "",
           });
           break;
+        /*  case "speciality":
+          this.specialities.push({
+            speciality: "",
+          });
+          break; */
       }
     },
 
@@ -582,12 +662,20 @@ export default {
             this.qualities.pop(item);
           }
           break;
+        /* case "speciality":
+          if (index === 0) {
+            this.specialities[index].speciality = "";
+          } else {
+            this.specialities.pop(item);
+          }
+          break; */
       }
     },
     save() {
       const data = {
         degrees: this.degrees,
         projects: this.projects,
+        specialities: this.specialities,
         first_name: this.coord.first_name,
         last_name: this.coord.last_name,
         email: this.coord.email,
@@ -595,36 +683,99 @@ export default {
         mobile_number: this.coord.mobile_number,
         date_of_birth: this.coord.date_of_birth,
         nationality: this.coord.nationality,
-        speciality: this.coord.speciality,
+        address: this.coord.address,
         motivation: this.coord.motivation,
         competences: this.competences,
         languages: this.languages,
         qualities: this.qualities,
         /*   token: this.$store.token, */
       };
+      if (this.success) {
+        ApiService.post(this.$appUrl + "/api/candidate/update-cv", data)
+          .then(() => {
+            this.success = true;
+            localStorage.success = this.success;
+            this.erreur = [];
 
-      ApiService.post(this.$appUrl + "/api/candidate/store-cv", data)
-        .then(() => {
-          
-          this.success = true;
-          this.erreur = [];
-        
-          this.$toast.success("Votre cv a été bien enregistré!");
-        })
-        .catch((error) => {
-          this.success = false;
-          this.prepare = true;
-          this.erreur = error.response.data.message;
-          (this.hasError = true), (this.success = false);
-          this.$toast.error("Votre cv n'a pas été enregistré! Veuillez entrer vos données correctement.");
-          console.log(error);
-        });
+            this.$toast.success("Votre cv a été bien modifié!");
+          })
+          .catch((error) => {
+            this.success = false;
+            this.prepare = true;
+            this.erreur = error.response.data.message;
+            (this.hasError = true), (this.success = false);
+            this.$toast.error(
+              "Votre cv n'a pas été enregistré! Veuillez entrer vos données correctement."
+            );
+            console.log(error);
+          });
+      } else {
+        ApiService.post(this.$appUrl + "/api/candidate/store-cv", data)
+          .then(() => {
+            this.success = true;
+            localStorage.success = this.success;
+            this.erreur = [];
+
+            this.$toast.success("Votre cv a été bien enregistré!");
+          })
+          .catch((error) => {
+            this.success = false;
+            this.prepare = true;
+            this.erreur = error.response.data.message;
+            (this.hasError = true), (this.success = false);
+            this.$toast.error(
+              "Votre cv n'a pas été enregistré! Veuillez entrer vos données correctement."
+            );
+            console.log(error);
+          });
+      }
     },
     print() {
       window.print();
     },
     deleteCV() {
-    
+      this.success=false;
+     
+      /*  ApiService.delete(this.$appUrl + "/api/candidate/delete-cv")
+        .then((response) => {
+          this.coord = response.data.candidate;
+          (this.degrees = [
+            {
+              degree_title: "",
+              organism: "",
+              organism_city: "",
+              degree_start_date: "",
+              degree_end_date: "",
+              degree_description: "",
+            },
+          ]),
+            (this.projects = [
+              {
+                project_title: "",
+                project_description: "",
+                master_project: "",
+                project_start_date: "",
+                project_end_date: "",
+              },
+            ]),
+            (this.competences = [
+              {
+                degree_title: "",
+                organism: "",
+                organism_city: "",
+                degree_start_date: "",
+                degree_end_date: "",
+                degree_description: "",
+              },
+            ]),
+            (this.qualities = [{ language: "" }]);
+          this.languages = [{ quality: "" }];
+          this.speciality = response.data.speciality;
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        }); */
     },
   },
 };

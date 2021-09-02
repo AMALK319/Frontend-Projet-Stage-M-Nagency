@@ -7,16 +7,18 @@ import router from './router'
 import config from './config'
 
 import VueToast from 'vue-toast-notification';
-// Import one of the available themes
-//import 'vue-toast-notification/dist/theme-default.css';
 import 'vue-toast-notification/dist/theme-sugar.css';
+
+
 
 Vue.use(VueToast);
 Vue.use(VueRouter);
 
+
 import '@/assets/css/main.css'
 
 Vue.config.productionTip = false
+
 Vue.prototype.$appUrl = config.appUrl
 ApiService.init();
 

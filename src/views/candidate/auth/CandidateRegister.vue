@@ -7,7 +7,7 @@
         </div>
       </nav>
     </div>
-  <div class="card">
+    <div class="card">
       <div class="card-body">
         <h3>Inscription</h3>
         <div class="row">
@@ -22,7 +22,9 @@
               autofocus="autofocus"
               class="form-control"
               v-model="register.first_name"
+              @change="clear"
               aria-label="First name"
+              required
             />
             <span
               class="text-danger"
@@ -31,44 +33,91 @@
               >{{ erros.first_name[0] }}</span
             >
           </div>
-          <div class="col-4">
+          <div
+            class="col-4"
+            :class="['form-group', erros.last_name ? 'has-error' : '']"
+          >
             <label>Nom :</label>
             <input
               type="text"
               v-model="register.last_name"
+              @change="clear"
               class="form-control"
               aria-label="Last name"
+              required
             />
+            <span
+              class="text-danger"
+              v-if="erros.last_name"
+              :class="['label label-danger']"
+              >{{ erros.last_name[0] }}</span
+            >
           </div>
-          <div class="col-4">
+          <div
+            class="col-4"
+            :class="['form-group', erros.email ? 'has-error' : '']"
+          >
             <label>Email :</label>
             <input
               type="email"
               class="form-control"
               aria-label="Email address"
               v-model="register.email"
+              @change="clear"
+              required
             />
+            <span
+              class="text-danger"
+              v-if="erros.email"
+              :class="['label label-danger']"
+              >{{ erros.email[0] }}</span
+            >
           </div>
         </div>
         <br />
         <div class="row">
-          <div class="col">
+          <div
+            class="col"
+            :class="['form-group', erros.password ? 'has-error' : '']"
+          >
             <label>Password :</label>
             <input
               type="password"
               class="form-control"
               aria-label="Password"
               v-model="register.password"
+              @change="clear"
+              required
             />
+            <span
+              class="text-danger"
+              v-if="erros.password"
+              :class="['label label-danger']"
+              >{{ erros.password[0] }}</span
+            >
           </div>
-          <div class="col">
+          <div
+            class="col"
+            :class="[
+              'form-group',
+              erros.password_confirmation ? 'has-error' : '',
+            ]"
+          >
             <label>Confirme Password :</label>
             <input
               type="password"
               class="form-control"
               aria-label="Password"
               v-model="register.password_confirmation"
+              @change="clear"
+              required
             />
+            <span
+              class="text-danger"
+              v-if="erros.password_confirmation"
+              :class="['label label-danger']"
+              >{{ erros.password_confirmation[0] }}</span
+            >
           </div>
         </div>
         <br />
@@ -92,9 +141,9 @@
             />
           </div>
         </div>
-       
+
         <br />
-       
+
         <button
           type="submit"
           class="btn  btn-md btn-block pull-right"
@@ -110,9 +159,8 @@
       </div>
     </div>
     <br />
-  <!--   <Footer></Footer> -->
+    <!--   <Footer></Footer> -->
   </div>
-
 </template>
 
 <script>
@@ -122,9 +170,9 @@ import Footer from "@/components/Footer.vue"; */
 import axios from "axios";
 
 export default {
-  name: 'CandidateRegister',
+  name: "CandidateRegister",
   data() {
-   return {
+    return {
       register: {
         first_name: "",
         last_name: "",
@@ -133,30 +181,31 @@ export default {
         password_confirmation: "",
         nationality: "",
         mobile_number: "",
-        
       },
       erros: [],
-      success: false,
+      success: true,
     };
   },
   methods: {
     registerCandidate() {
       axios
-        .post(
-          this.$appUrl+"/api/candidate-register",
-          this.register
-        )
+        .post(this.$appUrl + "/api/candidate-register", this.register)
         .then((response) => {
           console.log(response);
           this.erros = [];
           this.success = true;
-          this.$toast.success("Veuillez consulter le mail envoyé pour confirmer votre e-mail!")
-          
+          this.$toast.success(
+            "Veuillez consulter le mail envoyé pour confirmer votre e-mail!"
+          );
         })
         .catch((error) => {
           this.erros = error.response.data.errors;
           this.success = false;
         });
+    },
+    clear() {
+      this.erros = [];
+      this.success = true;
     },
   },
 };
@@ -164,7 +213,7 @@ export default {
 
 <style scoped>
 .navbar-brand {
-  color:#DC143C;
+  color: #dc143c;
   font-size: 30px;
   font-family: "Comic Sans MS", cursive;
   padding-left: 120px;
@@ -180,12 +229,12 @@ export default {
   margin-left: auto;
   margin-right: auto;
   margin-top: 2%;
-  box-shadow:#DC143C;
+  box-shadow: #dc143c;
   height: auto;
 }
 h3 {
   text-align: center;
-  color:#DC143C;
+  color: #dc143c;
 }
 label {
   font-weight: 500;
