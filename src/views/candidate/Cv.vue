@@ -461,7 +461,7 @@ export default {
     };
   },
   mounted() {
-   /*  ApiService.get(this.$appUrl + "/api/candidate/get-candidate")
+    ApiService.get(this.$appUrl + "/api/candidate/get-candidate")
       .then((response) => {
         this.coord = response.data.candidate;
        
@@ -469,14 +469,9 @@ export default {
       })
       .catch((error) => {
         console.log(error);
-      }); */
+      });
 
-    if (localStorage.getItem("degrees")) {
-      this.degrees = JSON.parse(localStorage.getItem("degrees"));
-    }
-    if (localStorage.success) {
-      this.success = localStorage.success;
-    }
+    
   },
   methods: {
     advanceStep() {
@@ -610,10 +605,10 @@ export default {
 
       ApiService.post(this.$appUrl + "/api/candidate/store-cv", data)
         .then(() => {
-          localStorage.setItem("degrees", JSON.stringify(this.degrees));
+          
           this.success = true;
           this.erreur = [];
-          localStorage.success = this.success;
+        
           this.$toast.success("Votre cv a été bien enregistré!");
         })
         .catch((error) => {
@@ -629,21 +624,7 @@ export default {
       window.print();
     },
     deleteCV() {
-      this.degrees = [
-        {
-          degree_title: "",
-          organism: "",
-          organism_city: "",
-          degree_start_date: "",
-          degree_end_date: "",
-          degree_description: "",
-        },
-      ];
-      localStorage.removeItem("degrees");
-      localStorage.removeItem("success");
-      this.success = false;
-      this.prepare = true;
-      this.$toast.info("Votre cv a été supprimé!");
+    
     },
   },
 };

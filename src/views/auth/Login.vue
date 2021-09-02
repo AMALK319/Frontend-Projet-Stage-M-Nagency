@@ -1,7 +1,7 @@
 <template>
-  <div class=" content">
+  <div class="content">
     <div id="navb">
-      <nav class="navbar navbar-expand-lg  bg-light ">
+      <nav class="navbar navbar-expand-lg bg-light">
         <div class="container-fluid">
           <a class="navbar-brand" href="/">G.Employees</a>
         </div>
@@ -15,18 +15,18 @@
 
         <div>
           <div class="form-group">
-            <label for="email" class=" control-label">Email address</label>
+            <label for="email" class="control-label">Email address</label>
             <input
               id="firstName"
               autofocus="autofocus"
               aria-label="email"
               type="email"
               v-model="login.email"
+                 @change="clear"
               class="form-control form-control-lg"
               :class="{
                 'border-danger': hasError,
                 'text-danger': hasError,
-                
               }"
               required
             />
@@ -40,21 +40,21 @@
               autofocus="autofocus"
               aria-label=""
               v-model="login.password"
+              @change="clear"
               class="form-control form-control-lg"
               required
               :class="{
                 'border-danger': hasError,
                 'text-danger': hasError,
-                
               }"
             />
           </div>
           <br />
           <button
             type="button"
-            class="btn  btn-lg btn-block"
+            class="btn btn-lg btn-block"
             @click="loginIt"
-            style="width: 100% ; background-color: #DC143C ; color: white;"
+            style="width: 100%; background-color: #dc143c; color: white"
           >
             Se connecter
           </button>
@@ -72,13 +72,11 @@
               </li>
               <li>
                 <a href="#"
-                  ><i class="bi bi-facebook" style="color :#2554ff"></i
+                  ><i class="bi bi-facebook" style="color: #2554ff"></i
                 ></a>
               </li>
               <li>
-                <a href="#"
-                  ><i class="bi bi-github" style="color : grey"></i
-                ></a>
+                <a href="#"><i class="bi bi-github" style="color: grey"></i></a>
               </li>
             </ul>
           </div>
@@ -106,7 +104,7 @@ export default {
         email: "",
         password: "",
       },
-     
+
       hasError: false,
       erreur: "",
       success: false,
@@ -114,8 +112,10 @@ export default {
   },
 
   methods: {
-    
-
+    clear() {
+      this.hasError = false;
+      this.erreur = "";
+    },
     loginIt() {
       this.$store
         .dispatch("login", this.login)
@@ -136,13 +136,12 @@ export default {
           console.log(error.response);
 
           if (error.response.data.message == "e-mail not verified") {
-             this.erreur = "E-mail non vérifié!";
-            (this.hasError = true),  (this.success = false);
+            this.erreur = "E-mail non vérifié!";
+            (this.hasError = true), (this.success = false);
             this.$toast.error("Votre e-mail n'est pas encore vérifié!");
-            
-            
           } else {
-            this.erreur = "E-mail ou mot de passe incorrect!";
+           
+            this.erreur = "E-mail/mot de passe incorrect!";
             (this.hasError = true), (this.success = false);
             this.$toast.error("Impossible de se connecter!");
           }
@@ -181,5 +180,4 @@ label {
   font-weight: 500;
   color: grey;
 }
-
 </style>
