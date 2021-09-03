@@ -67,13 +67,9 @@
             class="form-control"
             v-model="degree.degree_end_date"
             aria-label=" "
-            :class="{
-                'border-danger': hasError,
-                'text-danger': hasError,
-                
-              }"
+           
             required
-          /><span class="text-danger" v-if="erreur">{{ erreur }}</span>
+          />
         </div>
       </div>
       <br />
@@ -107,8 +103,7 @@
 export default {
   props: {
     degree : Object,
-    hasError : Boolean,
-    erreur : String,
+   
   },
   methods: {
     

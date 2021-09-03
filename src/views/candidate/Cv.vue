@@ -162,18 +162,14 @@
               </div>
               <div class="col-6">
                 <label for="" class="control-label">Addresse:</label>
-                <select
+                 <input
                   id=""
+                  type="text"
                   autofocus="autofocus"
                   class="form-control"
                   aria-label=" "
                   v-model="coord.address"
-                >
-                  <option selected>Cloud</option>
-                  <option value="1">Réseaux et Télécommunications</option>
-                  <option value="2">Data</option>
-                  <option value="3">Cloud</option>
-                </select>
+                />
               </div>
             </div>
             <br />
@@ -198,18 +194,21 @@
         <!--   Coordonnées -->
         <div class="speciality" v-show="current_step == 2">
           <div class="card small-card">
-            <div class="row">
+            <!-- <div class="row">
               <div class="col-4">
                 <label for="" class="control-label">Spécialité 1: </label>
-                <input
+               <select
                   id=""
-                  type="text"
                   autofocus="autofocus"
-                  class="form-control bg-light"
+                  class="form-control"
                   aria-label=" "
-                  v-model="specialities.speciality"
-                  required
-                />
+                  v-model="specialities[1].speciality"
+                >
+                  <option selected>Cloud</option>
+                  <option value="1">Réseaux et Télécommunications</option>
+                  <option value="2">Data</option>
+                  <option value="3">Cloud</option>
+                </select>
               </div>
               <div class="col-4">
                 <label for="" class="control-label">Spécialité 2: </label>
@@ -235,8 +234,8 @@
                 />
               </div>
             </div>
-            <br />
-          </div>
+            <br />-->
+          </div> 
         </div>
         <!--  Education -->
         <div class="education" v-show="current_step == 3">
@@ -455,7 +454,6 @@ import AddProject from "../../components/Cv/AddProject.vue";
 import AddCompetence from "../../components/Cv/AddCompetence.vue";
 import ApiService from "../../services/api.service";
 import Footer from "@/components/Footer.vue";
-
 export default {
   name: "Cv",
   components: {
@@ -478,7 +476,7 @@ export default {
         address: "",
       },
       motivation: "",
-      specialities: [{speciality: ""}],
+     /*  specialities: [{speciality: ""}, {speciality: ""}, {speciality: ""}], */
       degrees: [
         {
           degree_title: "",
@@ -506,7 +504,6 @@ export default {
       ],
       languages: [{ language: "" }],
       qualities: [{ quality: "" }],
-
       current_step: 1,
       max_step: 1,
       erros: [],
@@ -514,16 +511,18 @@ export default {
       erreur: "",
       success: false,
       prepare: true,
+      saved: false,
     };
   },
   mounted() {
-    if (localStorage.success) {
+    if (localStorage.success && localStorage.saved) {
       this.success = localStorage.success;
+       this.saved = localStorage.saved;
     }
+    
     /* ApiService.get(this.$appUrl + "/api/candidate/get-candidate")
       .then((response) => {
         this.coord = response.data.candidate;
-
         console.log(this.coord);
       })
       .catch((error) => {
@@ -532,17 +531,17 @@ export default {
     ApiService.get(this.$appUrl + "/api/candidate/show-cv")
       .then((response) => {
         if (this.success) {
-          this.coord = response.data.candidate;
+         
           this.degrees = response.data.degrees;
           this.projects = response.data.projects;
           this.competences = response.data.competences;
           this.qualities = response.data.qualities;
           this.languages = response.data.languages;
-          this.specialities = response.data.specialities;
+        /*   this.specialities = response.data.specialities; */
           this.motivation = response.data.motivation.motivation;
           console.log(response.data);
         }
-        
+         this.coord = response.data.candidate;
       })
       .catch((error) => {
         console.log(error);
@@ -560,11 +559,9 @@ export default {
         this.max_step = this.current_step;
       }
     },
-
     goToStep(value) {
       this.current_step = value;
     },
-
     addNewDegree(type) {
       switch (type) {
         case "degree":
@@ -586,20 +583,17 @@ export default {
             project_end_date: "",
           });
           break;
-
         case "competence":
           this.competences.push({
             competence: "",
             competence_description: "",
           });
           break;
-
         case "language":
           this.languages.push({
             language: "",
           });
           break;
-
         case "quality":
           this.qualities.push({
             quality: "",
@@ -612,7 +606,6 @@ export default {
           break; */
       }
     },
-
     cancel(item, index, type) {
       switch (type) {
         case "degree":
@@ -646,7 +639,6 @@ export default {
             this.competences.pop(item);
           }
           break;
-
         case "language":
           if (index === 0) {
             this.languages[index].language = "";
@@ -654,7 +646,6 @@ export default {
             this.languages.pop(item);
           }
           break;
-
         case "quality":
           if (index === 0) {
             this.qualities[index].quality = "";
@@ -675,7 +666,7 @@ export default {
       const data = {
         degrees: this.degrees,
         projects: this.projects,
-        specialities: this.specialities,
+       /*  specialities: this.specialities, */
         first_name: this.coord.first_name,
         last_name: this.coord.last_name,
         email: this.coord.email,
@@ -684,19 +675,18 @@ export default {
         date_of_birth: this.coord.date_of_birth,
         nationality: this.coord.nationality,
         address: this.coord.address,
-        motivation: this.coord.motivation,
+        motivation: this.motivation,
         competences: this.competences,
         languages: this.languages,
         qualities: this.qualities,
         /*   token: this.$store.token, */
       };
-      if (this.success) {
+      if (this.saved) {
         ApiService.post(this.$appUrl + "/api/candidate/update-cv", data)
           .then(() => {
             this.success = true;
             localStorage.success = this.success;
             this.erreur = [];
-
             this.$toast.success("Votre cv a été bien modifié!");
           })
           .catch((error) => {
@@ -713,9 +703,10 @@ export default {
         ApiService.post(this.$appUrl + "/api/candidate/store-cv", data)
           .then(() => {
             this.success = true;
+            this.saved = true;
             localStorage.success = this.success;
+            localStorage.saved = this.saved;
             this.erreur = [];
-
             this.$toast.success("Votre cv a été bien enregistré!");
           })
           .catch((error) => {
@@ -791,7 +782,6 @@ export default {
   margin-left: auto;
   margin-right: auto;
   margin-top: 2%;
-
   height: auto;
 }
 a:hover {

@@ -84,8 +84,7 @@
 export default {
   props: {
     project: Object,
-    hasError : Boolean,
-    erreur : String,
+  
   },
   methods: {
 
