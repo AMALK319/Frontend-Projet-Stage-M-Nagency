@@ -1,9 +1,7 @@
 <template>
   <div >
     
-
-<div class="content"></div>
- </div>
+</div>
  
 </template>
 

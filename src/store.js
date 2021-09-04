@@ -14,7 +14,7 @@ export default new Vuex.Store({
         space_name: '',
         token: JwtService.getToken().token || '',
         pre_loader: false,
-     
+        saved: false,
         
        
        

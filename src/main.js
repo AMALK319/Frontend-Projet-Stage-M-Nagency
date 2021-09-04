@@ -5,6 +5,8 @@ import store from './store'
 import ApiService from './services/api.service'
 import router from './router'
 import config from './config'
+import Vuesax from 'vuesax'
+import 'material-icons/iconfont/material-icons.css';
 
 import VueToast from 'vue-toast-notification';
 import 'vue-toast-notification/dist/theme-sugar.css';
@@ -12,7 +14,9 @@ import 'vue-toast-notification/dist/theme-sugar.css';
 
 
 Vue.use(VueToast);
+Vue.use(Vuesax);
 Vue.use(VueRouter);
+
 
 
 import '@/assets/css/main.css'

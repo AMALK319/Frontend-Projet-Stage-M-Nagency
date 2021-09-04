@@ -3,447 +3,481 @@
     <div class="navigation">
       <candidate-navbar> </candidate-navbar>
     </div>
-    <div class="card shadow shadow-danger shadow-intensity-md big-card">
-      <ul class="nav nav-tabs">
-        <li class="nav-item">
-          <a
-            class="nav-link"
-            :class="{ active: current_step == 1 }"
-            @click.prevent="goToStep(1)"
-            href="#"
-            >Détails Personnels</a
-          >
-        </li>
-        <li class="nav-item">
-          <a
-            class="nav-link"
-            :class="{ disabled: max_step < 2, active: current_step == 2 }"
-            @click.prevent="goToStep(2)"
-            href="#"
-            >Spécialité</a
-          >
-        </li>
-        <li class="nav-item">
-          <a
-            class="nav-link"
-            :class="{ disabled: max_step < 3, active: current_step == 3 }"
-            @click.prevent="goToStep(3)"
-            href="#"
-            >Education</a
-          >
-        </li>
-        <li class="nav-item">
-          <a
-            class="nav-link"
-            :class="{ disabled: max_step < 4, active: current_step == 4 }"
-            @click.prevent="goToStep(4)"
-            href="#"
-            >Expériences Professionnelles</a
-          >
-        </li>
-        <li class="nav-item">
-          <a
-            class="nav-link"
-            :class="{ disabled: max_step < 5, active: current_step == 5 }"
-            @click.prevent="goToStep(5)"
-            href="#"
-            >Distinctions</a
-          >
-        </li>
-      </ul>
-      <br />
-      <div class="tab-content">
-        <!--   Coordonnées -->
-        <div class="coordonnees" v-show="current_step == 1">
-          <div class="card small-card">
-            <div class="row">
-              <div class="col-2">
-                <div
-                  class="card"
-                  style="height: 130px; background-color: rgb(182, 179, 179)"
-                >
-                  <!-- <div class="icon">
-                    <i class="bi bi-camera" ></i>
-                  </div> -->
-                </div>
-              </div>
-              <div class="col-10">
-                <div class="row">
-                  <div class="col-6">
-                    <label for="" class="control-label">Prénom:</label>
-                    <input
-                      type="text"
-                      autofocus="autofocus"
-                      class="form-control"
-                      v-model="coord.first_name"
-                      aria-label=" "
-                      placeholder=""
-                    />
-                  </div>
-                  <div class="col-6">
-                    <label for="" class="control-label">Nom de famille:</label>
-                    <input
-                      type="text"
-                      autofocus="autofocus"
-                      class="form-control"
-                      v-model="coord.last_name"
-                      aria-label=" "
-                    />
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-6">
-                    <label for="degree_title" class="control-label"
-                      >Adresse e-mail:</label
-                    >
-                    <input
-                      type="text"
-                      autofocus="autofocus"
-                      class="form-control"
-                      aria-label=" "
-                      v-model="coord.email"
-                    />
-                  </div>
-                  <div class="col-6">
-                    <label for="" class="control-label"
-                      >Numéro de téléphone:</label
-                    >
-                    <input
-                      type="text"
-                      autofocus="autofocus"
-                      class="form-control"
-                      aria-label=" "
-                      v-model="coord.mobile_number"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <br />
-            <div class="row">
-              <div class="col-6">
-                <label for="" class="control-label">Genre</label>
-                <select
-                  id=""
-                  autofocus="autofocus"
-                  class="form-control"
-                  aria-label=" "
-                  v-model="coord.gender"
-                >
-                  <option selected>Mme</option>
-                  <option value="1">Mr</option>
-                </select>
-              </div>
-              <div class="col-6">
-                <label for="" class="control-label">Nationalité:</label>
-                <input
-                  id=""
-                  type="text"
-                  autofocus="autofocus"
-                  class="form-control"
-                  aria-label=" "
-                  v-model="coord.nationality"
-                />
-              </div>
-            </div>
-            <br />
-            <div class="row">
-              <div class="col-6">
-                <label for="" class="control-label">Date de naissance:</label>
-                <input
-                  id=""
-                  type="date"
-                  autofocus="autofocus"
-                  class="form-control"
-                  aria-label=" "
-                  v-model="coord.date_of_birth"
-                />
-              </div>
-              <div class="col-6">
-                <label for="" class="control-label">Addresse:</label>
-                 <input
-                  id=""
-                  type="text"
-                  autofocus="autofocus"
-                  class="form-control"
-                  aria-label=" "
-                  v-model="coord.address"
-                />
-              </div>
-            </div>
-            <br />
-            <div class="row">
-              <div class="col-12">
-                <label for="motivation" class="control-label"
-                  >Motivation:</label
-                >
-                <textarea
-                  id="motivation"
-                  type="text-area"
-                  autofocus="autofocus"
-                  class="form-control"
-                  v-model="motivation"
-                  aria-label=" "
-                ></textarea>
-              </div>
-            </div>
-          </div>
-          <br />
-        </div>
-        <!--   Coordonnées -->
-        <div class="speciality" v-show="current_step == 2">
-          <div class="card small-card">
-            <!-- <div class="row">
-              <div class="col-4">
-                <label for="" class="control-label">Spécialité 1: </label>
-               <select
-                  id=""
-                  autofocus="autofocus"
-                  class="form-control"
-                  aria-label=" "
-                  v-model="specialities[1].speciality"
-                >
-                  <option selected>Cloud</option>
-                  <option value="1">Réseaux et Télécommunications</option>
-                  <option value="2">Data</option>
-                  <option value="3">Cloud</option>
-                </select>
-              </div>
-              <div class="col-4">
-                <label for="" class="control-label">Spécialité 2: </label>
-                <input
-                  id=""
-                  type="text"
-                  autofocus="autofocus"
-                  class="form-control bg-light"
-                  aria-label=" "
-                 
-                 
-                />
-              </div>
-              <div class="col-4">
-                <label for="" class="control-label">Spécialité 3: </label>
-                <input
-                  id=""
-                  type="text"
-                  autofocus="autofocus"
-                  class="form-control bg-light"
-                  aria-label=" "
-            
-                />
-              </div>
-            </div>
-            <br />-->
-          </div> 
-        </div>
-        <!--  Education -->
-        <div class="education" v-show="current_step == 3">
-          <!--    formation -->
-          <h5><i class="bi bi-book"></i> Formations</h5>
-          <div v-for="(degree, index) in degrees" :key="index.$key">
-            <add-degree
-              :degree="degree"
-              :hasError="hasError"
-              :erreur="erreur"
-            />
-
-            <button
-              class="btn btn-sm btn-complete add-btn pull-right"
-              @click="addNewDegree('degree')"
+    <div class="container">
+      <div class="card shadow shadow-danger shadow-intensity-md big-card">
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              :class="{ active: current_step == 1 }"
+              @click.prevent="goToStep(1)"
+              href="#"
+              >Détails Personnels</a
             >
-              <i class="bi bi-plus-lg" style="color: white; font-size: 80%"></i>
-              Ajouter Formation
-            </button>
-            <button
-              @click="cancel(degree, index, 'degree')"
-              class="btn btn-sm btn-complete btn-secondary pull-left"
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              :class="{ disabled: max_step < 2, active: current_step == 2 }"
+              @click.prevent="goToStep(2)"
+              href="#"
+              >Spécialités</a
             >
-              <i class="bi bi-trash" style="color: white; font-size: 80%"></i>
-              Annuler
-            </button>
-          </div>
-
-          <br /><br />
-          <hr />
-          <br />
-          <!--    formation -->
-
-          <!--   projet -->
-          <h5><i class="bi bi-kanban"></i> Projets Academiques</h5>
-          <div v-for="(project, index) in projects" :key="index.$key">
-            <add-project
-              :project="project"
-              :hasError="hasError"
-              :erreur="erreur"
-            />
-
-            <button
-              class="btn btn-sm btn-complete add-btn pull-right"
-              @click="addNewDegree('project')"
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              :class="{ disabled: max_step < 3, active: current_step == 3 }"
+              @click.prevent="goToStep(3)"
+              href="#"
+              >Education</a
             >
-              <i class="bi bi-plus-lg" style="color: white; font-size: 80%"></i>
-              Ajouter Projet Académique
-            </button>
-            <button
-              class="btn btn-sm btn-complete btn-secondary pull-left"
-              @click="cancel(project, index, 'project')"
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              :class="{ disabled: max_step < 4, active: current_step == 4 }"
+              @click.prevent="goToStep(4)"
+              href="#"
+              >Expériences Professionnelles</a
             >
-              <i class="bi bi-trash" style="color: white; font-size: 80%"></i>
-              Annuler
-            </button>
-          </div>
-
-          <br /><br />
-          <hr />
-          <br />
-          <!--   projet -->
-        </div>
-        <!--  Education -->
-
-        <div class="experiences" v-show="current_step == 4"></div>
-        <div class="distinctions" v-show="current_step == 5">
-          <!-- Competences -->
-          <h5><i class="bi bi-pencil"></i> Compétences</h5>
-          <div v-for="(competence, index) in competences" :key="index.$key">
-            <add-competence :competence="competence" />
-
-            <button
-              @click="addNewDegree('competence')"
-              class="btn btn-sm btn-complete add-btn pull-right"
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              :class="{ disabled: max_step < 5, active: current_step == 5 }"
+              @click.prevent="goToStep(5)"
+              href="#"
+              >Distinctions</a
             >
-              <i class="bi bi-plus-lg" style="color: white; font-size: 80%"></i>
-              Ajouter Compétence
-            </button>
-            <button
-              @click="cancel(competence, index, 'competence')"
-              class="btn btn-sm btn-complete btn-secondary pull-left"
-            >
-              <i class="bi bi-trash" style="color: white; font-size: 80%"></i>
-              Annuler
-            </button>
-          </div>
-          <br /><br />
-          <hr />
-          <br />
-          <!-- Competences -->
-
-          <!--   langues -->
-          <h5><i class="bi bi-translate"></i> Langues</h5>
-          <div v-for="(language, index) in languages" :key="index.$key">
+          </li>
+        </ul>
+        <br />
+        <div class="tab-content">
+          <!--   Coordonnées -->
+          <div class="coordonnees" v-show="current_step == 1">
             <div class="card small-card">
               <div class="row">
-                <div class="col-12">
-                  <label for="" class="control-label">Langue :</label>
+                <div class="col-2">
+                  <div
+                    class="card"
+                    style="height: 130px; background-color: rgb(182, 179, 179)"
+                  >
+                    <!-- <div class="icon">
+                    <i class="bi bi-camera" ></i>
+                  </div> -->
+                  </div>
+                </div>
+                <div class="col-10">
+                  <div class="row">
+                    <div class="col-6">
+                      <label for="" class="control-label">Prénom:</label>
+                      <input
+                        type="text"
+                        autofocus="autofocus"
+                        class="form-control"
+                        v-model="coord.first_name"
+                        aria-label=" "
+                        placeholder=""
+                      />
+                    </div>
+                    <div class="col-6">
+                      <label for="" class="control-label"
+                        >Nom de famille:</label
+                      >
+                      <input
+                        type="text"
+                        autofocus="autofocus"
+                        class="form-control"
+                        v-model="coord.last_name"
+                        aria-label=" "
+                      />
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-6">
+                      <label for="degree_title" class="control-label"
+                        >Adresse e-mail:</label
+                      >
+                      <input
+                        type="text"
+                        autofocus="autofocus"
+                        class="form-control"
+                        aria-label=" "
+                        v-model="coord.email"
+                      />
+                    </div>
+                    <div class="col-6">
+                      <label for="" class="control-label"
+                        >Numéro de téléphone:</label
+                      >
+                      <input
+                        type="text"
+                        autofocus="autofocus"
+                        class="form-control"
+                        aria-label=" "
+                        v-model="coord.mobile_number"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br />
+              <div class="row">
+                <div class="col-6">
+                  <label for="" class="control-label">Genre</label>
+                  <select
+                    id=""
+                    autofocus="autofocus"
+                    class="form-control"
+                    aria-label=" "
+                    v-model="coord.gender"
+                  >
+                    <option selected>Mme</option>
+                    <option value="1">Mr</option>
+                  </select>
+                </div>
+                <div class="col-6">
+                  <label for="" class="control-label">Nationalité:</label>
                   <input
                     id=""
                     type="text"
                     autofocus="autofocus"
-                    class="form-control bg-light"
+                    class="form-control"
                     aria-label=" "
-                    v-model="language.language"
-                    required
+                    v-model="coord.nationality"
                   />
                 </div>
               </div>
               <br />
-            </div>
-            <br />
-            <button
-              @click="addNewDegree('language')"
-              class="btn btn-sm btn-complete add-btn pull-right"
-            >
-              <i class="bi bi-plus-lg" style="color: white; font-size: 80%"></i>
-              Ajouter Langue
-            </button>
-            <button
-              @click="cancel(language, index, 'language')"
-              class="btn btn-sm btn-complete btn-secondary pull-left"
-            >
-              <i class="bi bi-trash" style="color: white; font-size: 80%"></i>
-              Annuler
-            </button>
-          </div>
-          <br /><br />
-          <hr />
-          <br />
-
-          <!--   langue -->
-
-          <!--   quality -->
-          <h5><i class="bi bi-clipboard-check"></i> Qualités</h5>
-          <div v-for="(quality, index) in qualities" :key="index.$key">
-            <div class="card small-card">
+              <div class="row">
+                <div class="col-6">
+                  <label for="" class="control-label">Date de naissance:</label>
+                  <input
+                    id=""
+                    type="date"
+                    autofocus="autofocus"
+                    class="form-control"
+                    aria-label=" "
+                    v-model="coord.date_of_birth"
+                  />
+                </div>
+                <div class="col-6">
+                  <label for="" class="control-label">Addresse:</label>
+                  <input
+                    id=""
+                    type="text"
+                    autofocus="autofocus"
+                    class="form-control"
+                    aria-label=" "
+                    v-model="coord.address"
+                  />
+                </div>
+              </div>
+              <br />
               <div class="row">
                 <div class="col-12">
-                  <label for="quality" class="control-label">Qualité :</label>
-                  <input
-                    id="quality"
+                  <label for="motivation" class="control-label"
+                    >Motivation:</label
+                  >
+                  <textarea
+                    id="motivation"
                     type="text-area"
                     autofocus="autofocus"
-                    class="form-control bg-light"
+                    class="form-control"
+                    v-model="motivation"
                     aria-label=" "
-                    v-model="quality.quality"
-                    required
-                  />
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+            <br />
+          </div>
+          <!--   Coordonnées -->
+          <div class="speciality" v-show="current_step == 2">
+            <div class="card small-card">
+              <div class="row">
+                <label class="col-sm-2 col-form-label">Spécialité 1:</label>
+                <div class="col-sm-10">
+                  <select
+                    id=""
+                    autofocus="autofocus"
+                    class="form-control"
+                    aria-label=" "
+                    v-model="specialities[0].speciality"
+                  >
+                    <option selected></option>
+                    <option value="Cloud Computing">Cloud Computing</option>
+                    <option value="Réseaux">
+                      Réseaux
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <br />
+              <div class="row">
+                 <label class="col-sm-2 col-form-label">Spécialité 2:</label>
+                <div class="col-sm-10">
+                  <select
+                    id=""
+                    autofocus="autofocus"
+                    class="form-control"
+                    aria-label=" "
+                    v-model="specialities[1].speciality"
+                  >
+                    <option selected></option>
+                    <option value="Cloud Computing">Cloud Computing</option>
+                    <option value="Réseaux">
+                      Réseaux
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <br />
+              <div class="row">
+                 <label class="col-sm-2 col-form-label">Spécialité 3:</label>
+                <div class="col-sm-10">
+                  <select
+                    id=""
+                    autofocus="autofocus"
+                    class="form-control"
+                    aria-label=" "
+                    v-model="specialities[2].speciality"
+                  >
+                    <option selected></option>
+                    <option value="Cloud Computing">Cloud Computing</option>
+                    <option value="Réseaux">
+                      Réseaux
+                    </option>
+                  </select>
                 </div>
               </div>
               <br />
             </div>
+          </div>
+          <!--  Education -->
+          <div class="education" v-show="current_step == 3">
+            <!--    formation -->
+            <h5><i class="bi bi-book"></i> Formations</h5>
+            <div v-for="(degree, index) in degrees" :key="index.$key">
+              <add-degree
+                :degree="degree"
+                :hasError="hasError"
+                :erreur="erreur"
+              />
+
+              <button
+                class="btn btn-sm btn-complete add-btn pull-right"
+                @click="addNewDegree('degree')"
+              >
+                <i
+                  class="bi bi-plus-lg"
+                  style="color: white; font-size: 80%"
+                ></i>
+                Ajouter Formation
+              </button>
+              <button
+                @click="cancel(degree, index, 'degree')"
+                class="btn btn-sm btn-complete btn-secondary pull-left"
+              >
+                <i class="bi bi-trash" style="color: white; font-size: 80%"></i>
+                Annuler
+              </button>
+            </div>
+
+            <br /><br />
+            <hr />
             <br />
-            <button
-              @click="addNewDegree('quality')"
-              class="btn btn-sm btn-complete add-btn pull-right"
-            >
-              <i class="bi bi-plus-lg" style="color: white; font-size: 80%"></i>
-              Ajouter Qualité
-            </button>
-            <button
-              @click="cancel(quality, index, 'quality')"
-              class="btn btn-sm btn-complete btn-secondary pull-left"
-            >
-              <i class="bi bi-trash" style="color: white; font-size: 80%"></i>
-              Annuler
-            </button>
+            <!--    formation -->
+
+            <!--   projet -->
+            <h5><i class="bi bi-kanban"></i> Projets Academiques</h5>
+            <div v-for="(project, index) in projects" :key="index.$key">
+              <add-project
+                :project="project"
+                :hasError="hasError"
+                :erreur="erreur"
+              />
+
+              <button
+                class="btn btn-sm btn-complete add-btn pull-right"
+                @click="addNewDegree('project')"
+              >
+                <i
+                  class="bi bi-plus-lg"
+                  style="color: white; font-size: 80%"
+                ></i>
+                Ajouter Projet Académique
+              </button>
+              <button
+                class="btn btn-sm btn-complete btn-secondary pull-left"
+                @click="cancel(project, index, 'project')"
+              >
+                <i class="bi bi-trash" style="color: white; font-size: 80%"></i>
+                Annuler
+              </button>
+            </div>
+
+            <br /><br />
+            <hr />
+            <br />
+            <!--   projet -->
+          </div>
+          <!--  Education -->
+
+          <div class="experiences" v-show="current_step == 4"></div>
+          <div class="distinctions" v-show="current_step == 5">
+            <!-- Competences -->
+            <h5><i class="bi bi-pencil"></i> Compétences</h5>
+            <div v-for="(competence, index) in competences" :key="index.$key">
+              <add-competence :competence="competence" />
+
+              <button
+                @click="addNewDegree('competence')"
+                class="btn btn-sm btn-complete add-btn pull-right"
+              >
+                <i
+                  class="bi bi-plus-lg"
+                  style="color: white; font-size: 80%"
+                ></i>
+                Ajouter Compétence
+              </button>
+              <button
+                @click="cancel(competence, index, 'competence')"
+                class="btn btn-sm btn-complete btn-secondary pull-left"
+              >
+                <i class="bi bi-trash" style="color: white; font-size: 80%"></i>
+                Annuler
+              </button>
+            </div>
+            <br /><br />
+            <hr />
+            <br />
+            <!-- Competences -->
+
+            <!--   langues -->
+            <h5><i class="bi bi-translate"></i> Langues</h5>
+            <div v-for="(language, index) in languages" :key="index.$key">
+              <div class="card small-card">
+                <div class="row">
+                  <div class="col-12">
+                    <label for="" class="control-label">Langue :</label>
+                    <input
+                      id=""
+                      type="text"
+                      autofocus="autofocus"
+                      class="form-control bg-light"
+                      aria-label=" "
+                      v-model="language.language"
+                      required
+                    />
+                  </div>
+                </div>
+                <br />
+              </div>
+              <br />
+              <button
+                @click="addNewDegree('language')"
+                class="btn btn-sm btn-complete add-btn pull-right"
+              >
+                <i
+                  class="bi bi-plus-lg"
+                  style="color: white; font-size: 80%"
+                ></i>
+                Ajouter Langue
+              </button>
+              <button
+                @click="cancel(language, index, 'language')"
+                class="btn btn-sm btn-complete btn-secondary pull-left"
+              >
+                <i class="bi bi-trash" style="color: white; font-size: 80%"></i>
+                Annuler
+              </button>
+            </div>
+            <br /><br />
+            <hr />
+            <br />
+
+            <!--   langue -->
+
+            <!--   quality -->
+            <h5><i class="bi bi-clipboard-check"></i> Qualités</h5>
+            <div v-for="(quality, index) in qualities" :key="index.$key">
+              <div class="card small-card">
+                <div class="row">
+                  <div class="col-12">
+                    <label for="quality" class="control-label">Qualité :</label>
+                    <input
+                      id="quality"
+                      type="text-area"
+                      autofocus="autofocus"
+                      class="form-control bg-light"
+                      aria-label=" "
+                      v-model="quality.quality"
+                      required
+                    />
+                  </div>
+                </div>
+                <br />
+              </div>
+              <br />
+              <button
+                @click="addNewDegree('quality')"
+                class="btn btn-sm btn-complete add-btn pull-right"
+              >
+                <i
+                  class="bi bi-plus-lg"
+                  style="color: white; font-size: 80%"
+                ></i>
+                Ajouter Qualité
+              </button>
+              <button
+                @click="cancel(quality, index, 'quality')"
+                class="btn btn-sm btn-complete btn-secondary pull-left"
+              >
+                <i class="bi bi-trash" style="color: white; font-size: 80%"></i>
+                Annuler
+              </button>
+            </div>
+            <br />
+            <br />
+
+            <!--   quality -->
           </div>
           <br />
+          <button
+            class="btn btn-suc"
+            :class="{ 'btn-success': success, 'submit-btn': !success }"
+            @click="advanceStep"
+          >
+            <span v-if="max_step == 5 && !success">Enregistrer</span>
+            <span v-else-if="max_step < 5">Suivant</span>
+            <span v-else-if="success">Modifier</span>
+          </button>
           <br />
-
-          <!--   quality -->
         </div>
-        <button
-          class="btn btn-suc  "
-          :class="{ 'btn-success': success, 'submit-btn': prepare }"
-          @click="advanceStep"
-        >
-          <span v-if="max_step == 5 && !success">Enregistrer</span>
-          <span v-else-if="max_step < 5">Suivant</span>
-          <span v-else-if="success">Modifier</span>
-        </button>
-        <br />
+      </div>
+      <div class="card tools-card big-card" v-show="saved">
+        <div class="row">
+          <button
+            class="btn print-btn pull-left"
+            @click="print"
+            style="width: 20%"
+          >
+            <span>Imprimer Mon Cv</span>
+          </button>
+          <button
+            class="btn delete-btn btn-secondary pull-right"
+            style="width: 20%"
+            @click="deleteCV"
+          >
+            <span>Supprimer Mon Cv</span>
+          </button>
+        </div>
       </div>
     </div>
-    <div class="card big-card">
-      <div class="row">
-        <button
-          class="btn  print-btn pull-left "
-          :class="{ disabled: !success }"
-          @click="print"
-          style="width:20%"
-        >
-          <span>Imprimer Mon Cv</span>
-        </button>
-        <button
-          class="btn  delete-btn btn-secondary pull-right "
-          style="width:20%"
-          :class="{ disabled: !success }"
-          @click="deleteCV"
-        >
-          <span>Supprimer Mon Cv</span>
-        </button>
-      </div>
-    </div>
-    <br /><br /><br />
+    <!-- <br /><br /><br /> -->
     <Footer></Footer>
   </div>
 </template>
@@ -476,7 +510,11 @@ export default {
         address: "",
       },
       motivation: "",
-     /*  specialities: [{speciality: ""}, {speciality: ""}, {speciality: ""}], */
+      specialities: [
+        { speciality: "" },
+        { speciality: "" },
+        { speciality: "" },
+      ],
       degrees: [
         {
           degree_title: "",
@@ -511,37 +549,42 @@ export default {
       erreur: "",
       success: false,
       prepare: true,
-      saved: false,
+      saved: this.$store.saved,
     };
   },
   mounted() {
     if (localStorage.success && localStorage.saved) {
       this.success = localStorage.success;
-       this.saved = localStorage.saved;
+      this.saved = localStorage.saved;
     }
-    
-    /* ApiService.get(this.$appUrl + "/api/candidate/get-candidate")
+
+    ApiService.get(this.$appUrl + "/api/candidate/get-candidate")
       .then((response) => {
         this.coord = response.data.candidate;
         console.log(this.coord);
       })
       .catch((error) => {
         console.log(error);
-      }); */
+      });
     ApiService.get(this.$appUrl + "/api/candidate/show-cv")
       .then((response) => {
         if (this.success) {
-         
           this.degrees = response.data.degrees;
           this.projects = response.data.projects;
           this.competences = response.data.competences;
           this.qualities = response.data.qualities;
           this.languages = response.data.languages;
-        /*   this.specialities = response.data.specialities; */
+          this.specialities = response.data.specialities;
+          this.specialities[0].speciality =
+            response.data.specialities[0].category_id;
+          this.specialities[1].speciality =
+            response.data.specialities[1].category_id;
+          this.specialities[2].speciality =
+            response.data.specialities[2].category_id;
           this.motivation = response.data.motivation.motivation;
           console.log(response.data);
         }
-         this.coord = response.data.candidate;
+        this.coord = response.data.candidate;
       })
       .catch((error) => {
         console.log(error);
@@ -617,6 +660,16 @@ export default {
             this.degrees[index].degree_end_date = "";
             this.degrees[index].degree_description = "";
           } else {
+            ApiService.post(
+              this.$appUrl + "/api/candidate/delete-degree",
+              this.degrees[index]
+            )
+              .then((response) => {
+                console.log(response.data);
+              })
+              .catch((error) => {
+                console.log(error);
+              });
             this.degrees.pop(item);
           }
           break;
@@ -628,6 +681,16 @@ export default {
             this.projects[index].project_start_date = "";
             this.projects[index].project_end_date = "";
           } else {
+            ApiService.post(
+              this.$appUrl + "/api/candidate/delete-project",
+              this.projects[index]
+            )
+              .then((response) => {
+                console.log(response.data);
+              })
+              .catch((error) => {
+                console.log(error);
+              });
             this.projects.pop(item);
           }
           break;
@@ -636,6 +699,16 @@ export default {
             this.competences[index].competence = "";
             this.competences[index].competence_description = "";
           } else {
+            ApiService.post(
+              this.$appUrl + "/api/candidate/delete-competence",
+              this.competences[index]
+            )
+              .then((response) => {
+                console.log(response.data);
+              })
+              .catch((error) => {
+                console.log(error);
+              });
             this.competences.pop(item);
           }
           break;
@@ -643,6 +716,16 @@ export default {
           if (index === 0) {
             this.languages[index].language = "";
           } else {
+            ApiService.post(
+              this.$appUrl + "/api/candidate/delete-language",
+              this.languages[index]
+            )
+              .then((response) => {
+                console.log(response.data);
+              })
+              .catch((error) => {
+                console.log(error);
+              });
             this.languages.pop(item);
           }
           break;
@@ -650,6 +733,16 @@ export default {
           if (index === 0) {
             this.qualities[index].quality = "";
           } else {
+            ApiService.post(
+              this.$appUrl + "/api/candidate/delete-quality",
+              this.qualities[index]
+            )
+              .then((response) => {
+                console.log(response.data);
+              })
+              .catch((error) => {
+                console.log(error);
+              });
             this.qualities.pop(item);
           }
           break;
@@ -666,7 +759,7 @@ export default {
       const data = {
         degrees: this.degrees,
         projects: this.projects,
-       /*  specialities: this.specialities, */
+        specialities: this.specialities,
         first_name: this.coord.first_name,
         last_name: this.coord.last_name,
         email: this.coord.email,
@@ -695,7 +788,7 @@ export default {
             this.erreur = error.response.data.message;
             (this.hasError = true), (this.success = false);
             this.$toast.error(
-              "Votre cv n'a pas été enregistré! Veuillez entrer vos données correctement."
+              "Votre cv n'a pas été modifié! Veuillez entrer vos données correctement."
             );
             console.log(error);
           });
@@ -725,56 +818,21 @@ export default {
       window.print();
     },
     deleteCV() {
-      this.success=false;
-     
-      /*  ApiService.delete(this.$appUrl + "/api/candidate/delete-cv")
-        .then((response) => {
-          this.coord = response.data.candidate;
-          (this.degrees = [
-            {
-              degree_title: "",
-              organism: "",
-              organism_city: "",
-              degree_start_date: "",
-              degree_end_date: "",
-              degree_description: "",
-            },
-          ]),
-            (this.projects = [
-              {
-                project_title: "",
-                project_description: "",
-                master_project: "",
-                project_start_date: "",
-                project_end_date: "",
-              },
-            ]),
-            (this.competences = [
-              {
-                degree_title: "",
-                organism: "",
-                organism_city: "",
-                degree_start_date: "",
-                degree_end_date: "",
-                degree_description: "",
-              },
-            ]),
-            (this.qualities = [{ language: "" }]);
-          this.languages = [{ quality: "" }];
-          this.speciality = response.data.speciality;
-          console.log(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        }); */
+      this.success = false;
     },
   },
 };
 </script>
 
 <style scoped>
+.container {
+  margin-top: 7%;
+}
+.tools-card {
+  margin-bottom: 10%;
+}
 .big-card {
-  width: 55%;
+  width: 70%;
   display: flex;
   text-align: left;
   justify-content: center;

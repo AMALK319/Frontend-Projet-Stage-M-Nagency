@@ -121,6 +121,19 @@ export default {
         console.log(error);
       });
   },
+  methods: {
+    show(category) {
+      
+      ApiService.get(
+        this.$appUrl + "/api/enterprise/get-candidates/" + category
+      )
+        .then((response) => {
+          this.candidates = response.data.candidates;
+          console.log(response.data);
+        })
+        .catch((error) => console.log(error));
+    },
+  }
 };
 </script>
 

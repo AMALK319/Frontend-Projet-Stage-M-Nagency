@@ -124,12 +124,13 @@ a:link {
 }
 /* lien visité */
 a:visited {
-  color: #095484;
+  color: #dc143c;
 }
 /* souris sur le lien */
 a:hover {
   color: #dc143c;
 }
+
 /* lien sélécté */
 .icon {
  
@@ -137,3 +138,4 @@ a:hover {
 }
 
 /* Cv and its components */
+

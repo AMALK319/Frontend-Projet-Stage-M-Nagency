@@ -10,6 +10,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "core-js": "^3.17.1",
+    "material-icons": "^1.2.1",
     "sweetalert2": "^11.1.4",
     "vform": "^2.1.1",
     "vue": "^2.6.11",
@@ -17,6 +18,7 @@
     "vue-router": "^3.5.2",
     "vue-sidebar-menu": "^5.0.1",
     "vue-toast-notification": "^0.6.2",
+    "vuesax": "^3.12.2",
     "vuex": "^3.6.2",
     "vuex-persistedstate": "^4.0.0"
   },

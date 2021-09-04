@@ -3,42 +3,45 @@
     <div id="navigation">
       <enterprise-navbar></enterprise-navbar>
     </div>
-    <!--   <br /><br /><br> -->
+    
     <div class="container">
-      <h1 class="text-center">
+      <!-- <h1 class="text-center">
         Cv de {{ candidate.first_name }}.{{ candidate.last_name[0] }}
-      </h1>
+      </h1> -->
 
       <div class="card shadow shadow-danger shadow-intensity-md big-card">
         <div class="row">
           <div class="col-5">
             <img
               class="rounded-circle center"
-              style="max-width: 50%; max-height: 50%"
+              style="max-width: 40%; max-height: 40%"
               src="../../assets/photo.jpg"
               alt=""
             />
-
-            <!--  <h2 class="text-center">
-              Cv de {{ candidate.first_name }}.{{ candidate.last_name[0] }}
-            </h2> -->
-            <br />
+<br>
+             <h3 class="text-center">
+             {{ candidate.first_name }}.{{ candidate.last_name[0] }}
+            </h3>
+            <br>
             <div class="contact">
               <div class="contact-flex">
                 <p><i class="bi bi-briefcase"></i></p>
-                <p>Développeur Web</p>
+                <p>{{ specialities[0].category_id }} |</p>
+                <p style="">{{ specialities[1].category_id }} |</p>
               </div>
               <br />
               <div class="contact-flex">
                 <p><i class="bi bi-geo-alt"></i></p>
-                <p></p>
+                <p>{{ candidate.address }}</p>
               </div>
               <br />
               <div class="contact-flex">
-                <p><i class="bi bi-calendar2-date"></i></p>
-                <p></p>
+                <p><i class="bi bi-flag"></i></p>
+                <p>{{ candidate.nationality }}</p>
               </div>
+            
             </div>
+           
             <a href="#" class="btn btn-md btn-start">
               <i class="bi bi-chat-dots-fill"></i> Contactez</a
             >
@@ -109,15 +112,15 @@
                     {{ project.project_title }}
                     <div class="dates pull-right">
                       <span
-                        >{{ degree.project_start_date }} :
-                        {{ degree.project_end_date }}</span
+                        >{{ project.project_start_date }} :
+                        {{ project.project_end_date }}</span
                       >
                     </div>
                   </h6>
                 </div>
                 <div class="row">
                   <p>
-                    {{ project.degree_description }}
+                    {{ project.project_description }}
                   </p>
                 </div>
                 <hr />
@@ -234,7 +237,7 @@
     </div>
 
     <div class="footer">
-      <br /><br /><br />
+      
       <Footer></Footer>
     </div>
   </div>
@@ -260,6 +263,7 @@ export default {
       competences: null,
       languages: null,
       qualities: null,
+      specialities: null,
       token: this.$route.params.token,
       toggleDegree: false,
       toggleCompetence: false,
@@ -278,6 +282,7 @@ export default {
         this.competences = response.data.competences;
         this.languages = response.data.languages;
         this.qualities = response.data.qualities;
+        this.specialities = response.data.specialities;
 
         console.log(response.data);
       })
@@ -330,7 +335,8 @@ export default {
 
 <style scoped>
 .container {
-  margin-top: 6%;
+  margin-top: 7%;
+  margin-bottom: 8%;
 }
 .big-card {
   width: 95%;
@@ -355,7 +361,10 @@ h1 {
   display: block;
   margin: auto;
 }
-
+.contact{
+  margin-left: 10%;
+  margin-bottom: 1%;
+}
 .contact-flex {
   display: flex;
   flex-flow: row wrap;
