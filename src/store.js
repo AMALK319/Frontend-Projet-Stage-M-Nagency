@@ -49,9 +49,38 @@ export default new Vuex.Store({
 
           })
         },
+        adminLogin({ commit }, userData) {
+          return new Promise((resolve, reject) => {
+            commit('auth_request')
+            axios.post("http://127.0.0.1:8000/api/admin-login", userData)
+                .then(response => {
+                  const token = response.data.token;
+                  const space = response.data.space_name;
+                  const payload = {
+                    user: response.data.user[0],
+                    space_name: response.data.space_name,
+                    token: response.data.token,
+                
+                  
+                  };
+                  JwtService.setToken(token, space);
+                  ApiService.setHeader();
+                  commit('auth_success', { payload });
+                  console.log(response.data.user.email);
+                  resolve(response);
+                })
+                .catch(error => {
+                  console.log("login error", error);
+                  commit('auth_error');
+                  JwtService.unsetToken();
+                  reject(error);
+                })
+
+          })
+        },
         logout({ commit }) {
           commit('logout');
-        }
+        },
       },
       mutations: {
         auth_request(state) {
