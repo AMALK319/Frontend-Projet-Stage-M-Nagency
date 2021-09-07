@@ -100,7 +100,7 @@ export default {
       ApiService.get(this.$appUrl + "/api/candidate/user-logout")
       .then((response) => {
          this.$router.push("/" );
-         localStorage.clear();
+        /*  localStorage.clear(); */
         console.log(response.data);
       })
       .catch((error) => {
