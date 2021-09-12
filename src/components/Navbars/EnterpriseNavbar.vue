@@ -70,7 +70,7 @@
 
           <a
             class="nav-link navlink nav-link-icon"
-            href=""
+            href="/enterprise/conversations"
             target="_blank"
             data-toggle="tooltip"
             title=""
@@ -109,6 +109,7 @@ export default {
     return {
       hover: false,
       categories: null,
+     
     };
   },
   mounted() {

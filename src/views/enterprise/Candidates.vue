@@ -20,10 +20,10 @@
               autofocus="autofocus"
               class="form-control"
               aria-label=" "
-              @change="show(category)"
+              @change="showCandidates(category)"
               v-model="category"
             >
-              <option selected></option>
+              <option selected>Toutes</option>
               <option v-for="(category, index) in categories" :key="index.$key">
                 {{ category.category_name }}
               </option>
@@ -52,22 +52,24 @@
               </h5>
               <hr />
               <div class="card-text" style="margin-top: 3%">
-                <p class="info" v-if="candidate.specialities[1].category_id != null">
+               
+                
+                <p class="info" v-if="category == null" >
                   <i class="bi bi-briefcase"></i>
-                  {{ candidate.specialities[0].category_id }} ...
+                  {{ candidate.speciality.category_id }}
                 </p>
-                <p class="info" v-else>
+                <p class="info" v-else >
                   <i class="bi bi-briefcase"></i>
-                  {{ candidate.specialities[0].category_id }}
+                  {{ category}}
                 </p>
                 <p class="info">
                   <i class="bi bi-flag"></i> {{ candidate.nationality }}
                 </p>
-                <div class="row ">
+                <div class="row">
                   <div class="col-6">
                     <button
                       class="btn btn-sm btn-success btn-card"
-                      @click="voir(candidate.token)"
+                      @click="show(candidate.token)"
                     >
                       <i class="bi bi-eye-fill"></i> Voir Cv
                     </button>
@@ -109,10 +111,6 @@ export default {
     };
   },
   mounted() {
-    if (localStorage.category) {
-      this.category = localStorage.category;
-      
-    }
     ApiService.get(this.$appUrl + "/api/enterprise/get-categories")
       .then((response) => {
         this.categories = response.data.categories;
@@ -121,29 +119,12 @@ export default {
       .catch((error) => {
         console.log(error);
       });
-    if (this.category == null) {
-      ApiService.get(this.$appUrl + "/api/enterprise/get-candidates")
-        .then((response) => {
-          this.candidates = response.data.candidates;
-          console.log(response.data);
-          /*  console.log(response.data.candidates[0].token); */
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    } else {
-      ApiService.get(
-        this.$appUrl + "/api/enterprise/get-candidates/" + this.category
-      )
-        .then((response) => {
-          this.candidates = response.data.candidates;
-          console.log(response.data);
-        })
-        .catch((error) => console.log(error));
-    }
+
+    this.showAllCandidates();
+   
   },
   methods: {
-    voir(token) {
+    show(token) {
       ApiService.get(this.$appUrl + "/api/enterprise/get-candidate/" + token)
         .then((response) => {
           this.$router.push("/enterprise/candidate/" + token);
@@ -151,11 +132,31 @@ export default {
         })
         .catch((error) => console.log(error));
     },
-    show(category) {
-      console.log(category);
-      this.category = category;
-       localStorage.category = this.category;
-      location.reload();
+    showAllCandidates() {
+      ApiService.get(this.$appUrl + "/api/enterprise/get-candidates")
+        .then((response) => {
+          this.candidates = response.data.candidates;
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    showCandidates(category) {
+      if (category == "Toutes") {
+        this.showAllCandidates();
+        this.category = null;
+      } else {
+        
+        ApiService.get(
+          this.$appUrl + "/api/enterprise/get-candidates/" + category
+        )
+          .then((response) => {
+            this.candidates = response.data.candidates;
+            console.log(this.category);
+          })
+          .catch((error) => console.log(error));
+      }
     },
   },
 };
@@ -165,9 +166,8 @@ export default {
 .card {
   margin-top: 2%;
   padding: 1%;
-  
 }
-.card-candi{
+.card-candi {
   height: 100%;
 }
 hr {
@@ -178,7 +178,7 @@ hr {
 }
 .btn-card {
   color: white;
- 
+
   margin-bottom: 1%;
   width: 100%;
 }

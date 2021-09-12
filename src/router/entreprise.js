@@ -5,6 +5,7 @@ import HomeEnterprise from '../views/enterprise/HomeEnterprise.vue';
 import Candidates from '../views/enterprise/Candidates.vue';
 import Candidate from '../views/enterprise/Candidate.vue';
 import Tarifs from '../views/enterprise/Tarifs.vue';
+import EnterpriseConversations from '../views/enterprise/conversations/EnterpriseConversations.vue';
 import Container from '../views/enterprise/Container.vue'
 const EntrepriseRoute = [
     
@@ -21,6 +22,8 @@ const EntrepriseRoute = [
             { path: '/enterprise/candidate/:token', name: 'Candidate', component:  Candidate },
             { path: '/enterprise/home', name: 'HomeEnterprise', component:  HomeEnterprise },
             { path: '/enterprise/tarifs', name: 'Tarifs', component:  Tarifs },
+            { path: '/enterprise/conversations', name: 'EnterpriseConversations', component:  EnterpriseConversations},
+            { path: '/enterprise/conversations/:token', name: 'EnterpriseConversations', component:  EnterpriseConversations},
             
            
         ]

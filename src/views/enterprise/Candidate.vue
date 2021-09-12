@@ -42,7 +42,7 @@
             
             </div>
            
-            <a href="#" class="btn btn-md btn-start">
+            <a :href="'/enterprise/conversations/'+token" class="btn btn-md btn-start">
               <i class="bi bi-chat-dots-fill"></i> Contactez</a
             >
           </div>

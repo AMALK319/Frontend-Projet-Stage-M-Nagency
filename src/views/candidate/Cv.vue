@@ -135,7 +135,7 @@
                     v-model="coord.gender"
                   >
                     <option selected>Mme</option>
-                    <option value="1">Mr</option>
+                    <option value="Mr">Mr</option>
                   </select>
                 </div>
                 <div class="col-6">
@@ -209,15 +209,13 @@
                   >
                     <option selected></option>
                     <option value="Cloud Computing">Cloud Computing</option>
-                    <option value="Réseaux">
-                      Réseaux
-                    </option>
+                    <option value="Réseaux">Réseaux</option>
                   </select>
                 </div>
               </div>
               <br />
               <div class="row">
-                 <label class="col-sm-2 col-form-label">Spécialité 2:</label>
+                <label class="col-sm-2 col-form-label">Spécialité 2:</label>
                 <div class="col-sm-10">
                   <select
                     id=""
@@ -228,15 +226,13 @@
                   >
                     <option selected></option>
                     <option value="Cloud Computing">Cloud Computing</option>
-                    <option value="Réseaux">
-                      Réseaux
-                    </option>
+                    <option value="Réseaux">Réseaux</option>
                   </select>
                 </div>
               </div>
               <br />
               <div class="row">
-                 <label class="col-sm-2 col-form-label">Spécialité 3:</label>
+                <label class="col-sm-2 col-form-label">Spécialité 3:</label>
                 <div class="col-sm-10">
                   <select
                     id=""
@@ -247,9 +243,7 @@
                   >
                     <option selected></option>
                     <option value="Cloud Computing">Cloud Computing</option>
-                    <option value="Réseaux">
-                      Réseaux
-                    </option>
+                    <option value="Réseaux">Réseaux</option>
                   </select>
                 </div>
               </div>
@@ -263,30 +257,65 @@
             <div v-for="(degree, index) in degrees" :key="index.$key">
               <add-degree
                 :degree="degree"
-                :hasError="hasError"
-                :erreur="erreur"
+                :erros="erros"
               />
 
               <button
-                class="btn btn-sm btn-complete add-btn pull-right"
-                @click="addNewDegree('degree')"
-              >
-                <i
-                  class="bi bi-plus-lg"
-                  style="color: white; font-size: 80%"
-                ></i>
-                Ajouter Formation
-              </button>
-              <button
-                @click="cancel(degree, index, 'degree')"
-                class="btn btn-sm btn-complete btn-secondary pull-left"
+                @click="showModalDegree = true"
+                class="btn btn-sm btn-complete btn-secondary pull-right"
               >
                 <i class="bi bi-trash" style="color: white; font-size: 80%"></i>
-                Annuler
+                Supprimer
               </button>
+              <!--  modal -->
+              <div v-show="showModalDegree">
+                <transition name="modal">
+                  <div class="modal-mask">
+                    <div class="modal-wrapper">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h4 class="modal-title">Suppression :</h4>
+                          </div>
+                          <div class="modal-body">
+                            <p>
+                              Êtes-vous sûr de vouloir supprimer cette formation
+                              ?
+                            </p>
+                          </div>
+                          <div class="modal-footer">
+                            <button
+                              type="button"
+                              class="btn btn-secondary"
+                              @click="showModalDegree = false"
+                            >
+                              Annuler
+                            </button>
+                            <button
+                              type="button"
+                              class="btn-sho btn"
+                              @click="cancel(degree, index, 'degree')"
+                            >
+                              Oui
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </transition>
+              </div>
+              <br /><br />
             </div>
+            <button
+              class="btn btn-sm add-btn btn-suc"
+              @click="addNewDegree('degree')"
+            >
+              <i class="bi bi-plus-lg" style="color: white; font-size: 80%"></i>
+              Ajouter Formation
+            </button>
 
-            <br /><br />
+            <br />
             <hr />
             <br />
             <!--    formation -->
@@ -296,30 +325,62 @@
             <div v-for="(project, index) in projects" :key="index.$key">
               <add-project
                 :project="project"
-                :hasError="hasError"
-                :erreur="erreur"
+               
               />
 
               <button
-                class="btn btn-sm btn-complete add-btn pull-right"
-                @click="addNewDegree('project')"
-              >
-                <i
-                  class="bi bi-plus-lg"
-                  style="color: white; font-size: 80%"
-                ></i>
-                Ajouter Projet Académique
-              </button>
-              <button
-                class="btn btn-sm btn-complete btn-secondary pull-left"
-                @click="cancel(project, index, 'project')"
+                class="btn btn-sm btn-complete btn-secondary pull-right"
+                @click="showModalProject = true"
               >
                 <i class="bi bi-trash" style="color: white; font-size: 80%"></i>
-                Annuler
+                Supprimer
               </button>
+              <!--  modal -->
+              <div v-show="showModalProject">
+                <transition name="modal">
+                  <div class="modal-mask">
+                    <div class="modal-wrapper">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h4 class="modal-title">Suppression :</h4>
+                          </div>
+                          <div class="modal-body">
+                            <p>
+                              Êtes-vous sûr de vouloir supprimer ce projet ?
+                            </p>
+                          </div>
+                          <div class="modal-footer">
+                            <button
+                              type="button"
+                              class="btn btn-secondary"
+                              @click="showModalProject = false"
+                            >
+                              Annuler
+                            </button>
+                            <button
+                              type="button"
+                              class="btn-sho btn"
+                              @click="cancel(project, index, 'project')"
+                            >
+                              Oui
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </transition>
+              </div>
+              <br /><br />
             </div>
-
-            <br /><br />
+            <button
+              class="btn btn-sm add-btn btn-suc"
+              @click="addNewDegree('project')"
+            >
+              <i class="bi bi-plus-lg" style="color: white; font-size: 80%"></i>
+              Ajouter Projet Académique</button
+            ><br />
             <hr />
             <br />
             <!--   projet -->
@@ -334,24 +395,60 @@
               <add-competence :competence="competence" />
 
               <button
-                @click="addNewDegree('competence')"
-                class="btn btn-sm btn-complete add-btn pull-right"
-              >
-                <i
-                  class="bi bi-plus-lg"
-                  style="color: white; font-size: 80%"
-                ></i>
-                Ajouter Compétence
-              </button>
-              <button
-                @click="cancel(competence, index, 'competence')"
-                class="btn btn-sm btn-complete btn-secondary pull-left"
+                @click="showModalCompetence = true"
+                class="btn btn-sm btn-complete btn-secondary pull-right"
               >
                 <i class="bi bi-trash" style="color: white; font-size: 80%"></i>
-                Annuler
+                Supprimer
               </button>
+              <!--  modal -->
+              <div v-show="showModalCompetence">
+                <transition name="modal">
+                  <div class="modal-mask">
+                    <div class="modal-wrapper">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h4 class="modal-title">Suppression :</h4>
+                          </div>
+                          <div class="modal-body">
+                            <p>
+                              Êtes-vous sûr de vouloir supprimer cette
+                              compétence ?
+                            </p>
+                          </div>
+                          <div class="modal-footer">
+                            <button
+                              type="button"
+                              class="btn btn-secondary"
+                              @click="showModalCompetence = false"
+                            >
+                              Annuler
+                            </button>
+                            <button
+                              type="button"
+                              class="btn-sho btn"
+                              @click="cancel(competence, index, 'competence')"
+                            >
+                              Oui
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </transition>
+              </div>
+              <br /><br />
             </div>
-            <br /><br />
+            <button
+              @click="addNewDegree('competence')"
+              class="btn btn-sm btn-suc add-btn"
+            >
+              <i class="bi bi-plus-lg" style="color: white; font-size: 80%"></i>
+              Ajouter Compétence
+            </button>
+            <br />
             <hr />
             <br />
             <!-- Competences -->
@@ -377,24 +474,60 @@
                 <br />
               </div>
               <br />
+
               <button
-                @click="addNewDegree('language')"
-                class="btn btn-sm btn-complete add-btn pull-right"
-              >
-                <i
-                  class="bi bi-plus-lg"
-                  style="color: white; font-size: 80%"
-                ></i>
-                Ajouter Langue
-              </button>
-              <button
-                @click="cancel(language, index, 'language')"
-                class="btn btn-sm btn-complete btn-secondary pull-left"
+                @click="showModalLanguage = true"
+                class="btn btn-sm btn-complete btn-secondary pull-right"
               >
                 <i class="bi bi-trash" style="color: white; font-size: 80%"></i>
-                Annuler
+                Supprimer
               </button>
+              <!--  modal -->
+              <div v-show="showModalLanguage">
+                <transition name="modal">
+                  <div class="modal-mask">
+                    <div class="modal-wrapper">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h4 class="modal-title">Suppression :</h4>
+                          </div>
+                          <div class="modal-body">
+                            <p>
+                              Êtes-vous sûr de vouloir supprimer cette langue ?
+                            </p>
+                          </div>
+                          <div class="modal-footer">
+                            <button
+                              type="button"
+                              class="btn btn-secondary"
+                              @click="showModalLanguage = false"
+                            >
+                              Annuler
+                            </button>
+                            <button
+                              type="button"
+                              class="btn-sho btn"
+                              @click="cancel(language, index, 'language')"
+                            >
+                              Oui
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </transition>
+              </div>
+              <br /><br />
             </div>
+            <button
+              @click="addNewDegree('language')"
+              class="btn btn-sm btn-suc add-btn"
+            >
+              <i class="bi bi-plus-lg" style="color: white; font-size: 80%"></i>
+              Ajouter Langue
+            </button>
             <br /><br />
             <hr />
             <br />
@@ -422,24 +555,60 @@
                 <br />
               </div>
               <br />
+
               <button
-                @click="addNewDegree('quality')"
-                class="btn btn-sm btn-complete add-btn pull-right"
-              >
-                <i
-                  class="bi bi-plus-lg"
-                  style="color: white; font-size: 80%"
-                ></i>
-                Ajouter Qualité
-              </button>
-              <button
-                @click="cancel(quality, index, 'quality')"
-                class="btn btn-sm btn-complete btn-secondary pull-left"
+                @click="showModalQuality = true"
+                class="btn btn-sm btn-complete btn-secondary pull-right"
               >
                 <i class="bi bi-trash" style="color: white; font-size: 80%"></i>
-                Annuler
+                Supprimer
               </button>
+              <!--  modal -->
+              <div v-show="showModalQuality">
+                <transition name="modal">
+                  <div class="modal-mask">
+                    <div class="modal-wrapper">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h4 class="modal-title">Suppression :</h4>
+                          </div>
+                          <div class="modal-body">
+                            <p>
+                              Êtes-vous sûr de vouloir supprimer cette qualité ?
+                            </p>
+                          </div>
+                          <div class="modal-footer">
+                            <button
+                              type="button"
+                              class="btn btn-secondary"
+                              @click="showModalQuality = false"
+                            >
+                              Annuler
+                            </button>
+                            <button
+                              type="button"
+                              class="btn-sho btn"
+                              @click="cancel(quality, index, 'quality')"
+                            >
+                              Oui
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </transition>
+              </div>
+              <br /><br />
             </div>
+            <button
+              @click="addNewDegree('quality')"
+              class="btn btn-sm btn-suc add-btn"
+            >
+              <i class="bi bi-plus-lg" style="color: white; font-size: 80%"></i>
+              Ajouter Qualité
+            </button>
             <br />
             <br />
 
@@ -448,17 +617,22 @@
           <br />
           <button
             class="btn btn-suc"
-            :class="{ 'btn-success': success, 'submit-btn': !success }"
+            :class="{
+              'btn-success': coord.cv_created == 1 || success,
+              'submit-btn': coord.cv_created == 0 && !success,
+            }"
             @click="advanceStep"
           >
-            <span v-if="max_step == 5 && !success">Enregistrer</span>
+            <span v-if="max_step == 5 && coord.cv_created == 0"
+              >Enregistrer</span
+            >
             <span v-else-if="max_step < 5">Suivant</span>
-            <span v-else-if="success">Modifier</span>
+            <span v-else-if="coord.cv_created == 1 || success">Modifier</span>
           </button>
           <br />
         </div>
       </div>
-      <div class="card tools-card big-card" v-show="saved">
+      <div class="card tools-card big-card" v-show="coord.cv_created == 1 || success">
         <div class="row">
           <button
             class="btn print-btn pull-left"
@@ -477,7 +651,7 @@
         </div>
       </div>
     </div>
-    <!-- <br /><br /><br /> -->
+   <!--  <br /><br /><br /> -->
     <Footer></Footer>
   </div>
 </template>
@@ -508,6 +682,7 @@ export default {
         nationality: "",
         date_of_birth: "",
         address: "",
+        cv_created: 0,
       },
       motivation: "",
       specialities: [
@@ -544,20 +719,18 @@ export default {
       qualities: [{ quality: "" }],
       current_step: 1,
       max_step: 1,
-      erros: [],
-      hasError: false,
-      erreur: "",
       success: false,
-      prepare: true,
-      saved: false,
+      showModalDegree: false,
+      showModalProject: false,
+      showModalCompetence: false,
+      showModalLanguage: false,
+      showModalQuality: false,
+      showModalSubmit: false,
+
+     erros : {},
     };
   },
   mounted() {
-    if (localStorage.success && localStorage.saved) {
-      this.success = localStorage.success;
-      this.saved = localStorage.saved;
-    }
-
     ApiService.get(this.$appUrl + "/api/candidate/get-candidate")
       .then((response) => {
         this.coord = response.data.candidate;
@@ -568,7 +741,7 @@ export default {
       });
     ApiService.get(this.$appUrl + "/api/candidate/show-cv")
       .then((response) => {
-        if (this.success) {
+        if (this.coord.cv_created == 1) {
           this.degrees = response.data.degrees;
           this.projects = response.data.projects;
           this.competences = response.data.competences;
@@ -593,8 +766,6 @@ export default {
   methods: {
     advanceStep() {
       if (this.max_step == 5) {
-        this.success = true;
-        this.prepare = false;
         return this.save();
       }
       this.current_step++;
@@ -659,6 +830,7 @@ export default {
             this.degrees[index].degree_start_date = "";
             this.degrees[index].degree_end_date = "";
             this.degrees[index].degree_description = "";
+            this.showModalDegree = false;
           } else {
             ApiService.post(
               this.$appUrl + "/api/candidate/delete-degree",
@@ -671,6 +843,7 @@ export default {
                 console.log(error);
               });
             this.degrees.pop(item);
+            this.showModalDegree = false;
           }
           break;
         case "project":
@@ -680,6 +853,7 @@ export default {
             this.projects[index].master_project = "";
             this.projects[index].project_start_date = "";
             this.projects[index].project_end_date = "";
+            this.showModalProject = false;
           } else {
             ApiService.post(
               this.$appUrl + "/api/candidate/delete-project",
@@ -692,12 +866,14 @@ export default {
                 console.log(error);
               });
             this.projects.pop(item);
+            this.showModalProject = false;
           }
           break;
         case "competence":
           if (index === 0) {
             this.competences[index].competence = "";
             this.competences[index].competence_description = "";
+            this.showModalCompetence = false;
           } else {
             ApiService.post(
               this.$appUrl + "/api/candidate/delete-competence",
@@ -710,11 +886,13 @@ export default {
                 console.log(error);
               });
             this.competences.pop(item);
+            this.showModalCompetence = false;
           }
           break;
         case "language":
           if (index === 0) {
             this.languages[index].language = "";
+            this.showModalLanguage = false;
           } else {
             ApiService.post(
               this.$appUrl + "/api/candidate/delete-language",
@@ -727,11 +905,13 @@ export default {
                 console.log(error);
               });
             this.languages.pop(item);
+            this.showModalLanguage = false;
           }
           break;
         case "quality":
           if (index === 0) {
             this.qualities[index].quality = "";
+            this.showModalQuality = false;
           } else {
             ApiService.post(
               this.$appUrl + "/api/candidate/delete-quality",
@@ -744,15 +924,9 @@ export default {
                 console.log(error);
               });
             this.qualities.pop(item);
+            this.showModalQuality = false;
           }
           break;
-        /* case "speciality":
-          if (index === 0) {
-            this.specialities[index].speciality = "";
-          } else {
-            this.specialities.pop(item);
-          }
-          break; */
       }
     },
     save() {
@@ -760,6 +934,7 @@ export default {
         degrees: this.degrees,
         projects: this.projects,
         specialities: this.specialities,
+        cv_created: this.coord.cv_created,
         first_name: this.coord.first_name,
         last_name: this.coord.last_name,
         email: this.coord.email,
@@ -774,19 +949,14 @@ export default {
         qualities: this.qualities,
         /*   token: this.$store.token, */
       };
-      if (this.saved) {
+      if (this.cv_created == 1) {
         ApiService.post(this.$appUrl + "/api/candidate/update-cv", data)
           .then(() => {
-            this.success = true;
-            localStorage.success = this.success;
-            this.erreur = [];
+            this.erros = {};
             this.$toast.success("Votre cv a été bien modifié!");
           })
           .catch((error) => {
-            this.success = false;
-            this.prepare = true;
-            this.erreur = error.response.data.message;
-            (this.hasError = true), (this.success = false);
+             this.erros = error.response.data.errors;
             this.$toast.error(
               "Votre cv n'a pas été modifié! Veuillez entrer vos données correctement."
             );
@@ -795,18 +965,12 @@ export default {
       } else {
         ApiService.post(this.$appUrl + "/api/candidate/store-cv", data)
           .then(() => {
-            this.success = true;
-            this.saved = true;
-            localStorage.success = this.success;
-            localStorage.saved = this.saved;
-            this.erreur = [];
+           this.erros = {};
+           this.success = true;
             this.$toast.success("Votre cv a été bien enregistré!");
           })
           .catch((error) => {
-            this.success = false;
-            this.prepare = true;
-            this.erreur = error.response.data.message;
-            (this.hasError = true), (this.success = false);
+             this.erros = error.response.data.errors;
             this.$toast.error(
               "Votre cv n'a pas été enregistré! Veuillez entrer vos données correctement."
             );
@@ -817,22 +981,21 @@ export default {
     print() {
       window.print();
     },
-    deleteCV() {
-      this.success = false;
-    },
+    deleteCV() {},
   },
 };
 </script>
 
 <style scoped>
 .container {
-  margin-top: 7%;
+  margin-top: 9%;
+   margin-bottom: 10%;
 }
 .tools-card {
-  margin-bottom: 10%;
+ /*  margin-bottom: 10%; */
 }
 .big-card {
-  width: 70%;
+  width: 80%;
   display: flex;
   text-align: left;
   justify-content: center;

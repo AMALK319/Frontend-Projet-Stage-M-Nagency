@@ -3,7 +3,7 @@
     <!--    formation -->
     <div class="card small-card">
       <div class="row">
-        <div class="col-12">
+        <div class="col-12" >
           <label for="degree_title" class="control-label">Formation:</label>
           <input
             id="degree_title"
@@ -12,8 +12,15 @@
             class="form-control"
             v-model="degree.degree_title"
             aria-label=" "
+             @change="clear"
             required
           />
+           <span
+              class="text-danger"
+              v-if="erros.degree_title"
+              :class="['label label-danger']"
+              >{{ erros.degree_title[0] }}</span
+            >
         </div>
       </div>
       <br />
@@ -103,10 +110,13 @@
 export default {
   props: {
     degree : Object,
-   
+    erros: Object,
   },
   methods: {
-    
+     clear() {
+      this.erros = {};
+      
+    },
   }
 
 };

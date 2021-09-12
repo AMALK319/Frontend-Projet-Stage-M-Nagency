@@ -1,6 +1,6 @@
 <template>
   <div class="content">
-    <br /><br /><br /><br /><br /><br><br>
+    <br /><br /><br /><br /><br>
     <div class="card">
       <div class="card-body">
         <h3>Connexion</h3>
@@ -114,8 +114,8 @@ export default {
 <style scoped>
 .content {
   background-color: #8b172e;
-/*   height: 577px; */
-height: 755px;
+  height: 577px;
+/* height: 755px; */
 }
 
 .card {

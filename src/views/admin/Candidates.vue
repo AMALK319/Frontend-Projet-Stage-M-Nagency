@@ -47,37 +47,59 @@
                       <i class="bi bi-trash"></i> Supprimer
                     </button>
                     <!-- Modal -->
-        <div v-show="showModal">
-          <transition name="modal">
-            <div class="modal-mask">
-              <div class="modal-wrapper">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h4 v-if="candidate.gender == 'Mme' " class="modal-title">Supprimer la candidate : {{ candidate.gender }} {{candidate.last_name }} {{candidate.first_name }} </h4>
-                      <h4 v-else  class="modal-title">Supprimer le candidat : {{ candidate.gender }} {{candidate.last_name }} {{candidate.first_name }}</h4>
+                    <div v-show="showModal">
+                      <transition name="modal">
+                        <div class="modal-mask">
+                          <div class="modal-wrapper">
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h4
+                                    v-if="candidate.gender == 'Mme'"
+                                    class="modal-title"
+                                  >
+                                    Supprimer la candidate :
+                                    {{ candidate.gender }}
+                                    {{ candidate.last_name }}
+                                    {{ candidate.first_name }}
+                                  </h4>
+                                  <h4 v-else class="modal-title">
+                                    Supprimer le candidat :
+                                    {{ candidate.gender }}
+                                    {{ candidate.last_name }}
+                                    {{ candidate.first_name }}
+                                  </h4>
+                                </div>
+                                <div class="modal-body">
+                                  <p>
+                                    Êtes-vous sûr de vouloir supprimer
+                                    <span v-if="candidate.gender == 'Mme'"
+                                      >cette candidate</span
+                                    ><span v-else>ce candidat</span> ?
+                                  </p>
+                                </div>
+                                <div class="modal-footer">
+                                  <button
+                                    type="button"
+                                    class="btn btn-secondary"
+                                    @click="showModal = false"
+                                  >
+                                    Annuler
+                                  </button>
+                                  <button
+                                    type="button"
+                                    class="btn-show btn"
+                                    @click="deleteCandidate(candidate.id)"
+                                  >
+                                    Oui
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </transition>
                     </div>
-                    <div class="modal-body">
-                      <p>Êtes-vous sûr de vouloir supprimer <span v-if="candidate.gender == 'Mme' ">cette candidate</span><span v-else >ce candidat</span> ? </p>
-                    </div>
-                    <div class="modal-footer">
-                      <button
-                        type="button"
-                        class="btn btn-secondary"
-                        @click="showModal = false"
-                      >
-                        Annuler
-                      </button>
-                      <button type="button" class="btn-show btn " @click="deleteCandidate(candidate.id)">
-                        Oui
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </transition>
-        </div>
                     <button
                       class="pull-right btn btn-sm btn-show btn-card"
                       @click="show(candidate.token)"
@@ -90,7 +112,6 @@
             </table>
           </div>
         </div>
-        
       </div>
     </div>
   </div>
@@ -142,17 +163,14 @@ export default {
         })
         .catch((error) => console.log(error));
     },
-    deleteCandidate(id){
-       ApiService.get(this.$appUrl + "/api/admin/delete-candidate/" + id)
+    deleteCandidate(id) {
+      ApiService.get(this.$appUrl + "/api/admin/delete-candidate/" + id)
         .then((response) => {
-          
           console.log(response);
           location.reload;
         })
         .catch((error) => console.log(error));
-    }
-    
-    
+    },
   },
 };
 </script>
@@ -185,20 +203,5 @@ h2 {
   color: white;
 }
 
-.modal-mask {
-  position: fixed;
-  z-index: 9998;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: table;
-  transition: opacity 0.3s ease;
-}
 
-.modal-wrapper {
-  display: table-cell;
-  vertical-align: middle;
-}
 </style>

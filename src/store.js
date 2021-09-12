@@ -9,12 +9,12 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
       state: {
-        user: null,
+        user:  JwtService.getUser() || null,
         status: '',
         space_name: '',
         token: JwtService.getToken().token || '',
         pre_loader: false,
-       
+      
         
        
        
@@ -27,15 +27,18 @@ export default new Vuex.Store({
                 .then(response => {
                   const token = response.data.token;
                   const space = response.data.space_name;
+                  const user = response.data.user;
                   const payload = {
                     user: response.data.user[0],
                     space_name: response.data.space_name,
                     token: response.data.token,
-                 
-                
-                  
                   };
+                  
+                
+                 
                   JwtService.setToken(token, space);
+                  JwtService.setUser(user);
+                 
                   ApiService.setHeader();
                   commit('auth_success', { payload });
                   console.log(response.data.user.email);
@@ -45,6 +48,7 @@ export default new Vuex.Store({
                   console.log("login error", error);
                   commit('auth_error');
                   JwtService.unsetToken();
+                
                   reject(error);
                 })
 
