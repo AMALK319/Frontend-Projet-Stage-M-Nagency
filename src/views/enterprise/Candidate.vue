@@ -133,7 +133,8 @@
                 <i
                   class="bi bi-sty pull-right"
                   :class="{
-                  
+                   'bi-arrow-down-circle-fill': !toggleExperience,
+                    'bi-arrow-up-circle-fill': toggleExperience,
                   }"
                   @click="show"
                 ></i>
@@ -146,7 +147,8 @@
                 <i
                   class="bi bi-sty pull-right"
                   :class="{
-                   
+                   'bi-arrow-down-circle-fill': !toggleCertification,
+                   'bi-arrow-up-circle-fill': toggleCertification,
                   }"
                   @click="show"
                 ></i>
@@ -266,7 +268,8 @@ export default {
       specialities: null,
       token: this.$route.params.token,
       toggleDegree: false,
-      toggleCompetence: false,
+      toggleExperience: false,
+      toggleCertification: false,
       toggleQuality: false,
       toggleLanguage: false,
       toggleProject: false,

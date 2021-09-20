@@ -87,7 +87,7 @@
             height="30"
             class="rounded-circle"
           />
-          <span class="d-none d-sm-inline mx-1  ">loser</span>
+          <span class="d-none d-sm-inline mx-1  ">Admin</span>
         </a>
         <ul
           class="dropdown-menu dropdown-menu-light text-small  shadow"

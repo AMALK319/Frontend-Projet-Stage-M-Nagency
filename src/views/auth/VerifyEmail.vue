@@ -4,6 +4,8 @@
       <nav class="navbar navbar-expand-lg  bg-light ">
         <div class="container-fluid">
           <a class="navbar-brand" href="/">G.Employees</a>
+          <a class="link pull-right" href="/login" >  Se connecter</a>
+
         </div>
       </nav>
     </div>
@@ -12,11 +14,12 @@
     <div class="card">
       <div class="card-body">
         <div class="row title">
-          <div class="icon">
-            <i class="bi bi-patch-check"></i>
-          </div>
+        
 
           <h1 class="display-4">Votre e-mail a été vérifié!</h1>
+            <div class="icon">
+           <i class="bi bi-check-lg"></i>
+          </div><br>
           <p class="lead">Connectez-vous pour commencer.</p>
         </div>
 
@@ -28,6 +31,7 @@
           Se connecter
         </a>
       </div>
+      <br>
     </div>
    
   </div>
@@ -61,10 +65,10 @@ export default {
 <style scoped>
 .card {
   height: auto;
-  width: 600px;
-  border-color: #fabfcb;
-  box-shadow: #DC143C;
-  border-radius: 3%;
+  width: 60%;
+  
+ 
+ 
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -91,5 +95,11 @@ export default {
 .btn {
   display: block;
   margin: auto;
+}
+.link{
+  text-decoration: none;
+  margin-right: 2%;
+  font-size: large;
+ font-family: "Comic Sans MS", cursive;
 }
 </style>

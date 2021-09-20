@@ -4,6 +4,7 @@
       <nav class="navbar navbar-expand-lg bg-light">
         <div class="container-fluid">
           <a class="navbar-brand" href="/">G.Employees</a>
+          <a class="link pull-right" href="/login" >  Se connecter</a>
         </div>
       </nav>
     </div>
@@ -23,7 +24,7 @@
               type="email"
               v-model="login.email"
                  @change="clear"
-              class="form-control form-control-lg"
+              class="form-control form-control-md"
               :class="{
                 'border-danger': hasError,
                 'text-danger': hasError,
@@ -41,7 +42,7 @@
               aria-label=""
               v-model="login.password"
               @change="clear"
-              class="form-control form-control-lg"
+              class="form-control form-control-md"
               required
               :class="{
                 'border-danger': hasError,
@@ -52,7 +53,7 @@
           <br />
           <button
             type="button"
-            class="btn btn-lg btn-block"
+            class="btn btn-md btn-block"
             @click="loginIt"
             style="width: 100%; background-color: #dc143c; color: white"
           >
@@ -63,7 +64,7 @@
             <a href="/forgot-password">Mot de passe oublié?</a>
           </p>
 
-          <div class="social-icons">
+          <!-- <div class="social-icons">
             <ul>
               <li>
                 <a href="#"
@@ -79,7 +80,7 @@
                 <a href="#"><i class="bi bi-github" style="color: grey"></i></a>
               </li>
             </ul>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -179,5 +180,11 @@ h3 {
 label {
   font-weight: 500;
   color: grey;
+}
+.link{
+  text-decoration: none;
+  margin-right: 2%;
+  font-size: large;
+ font-family: "Comic Sans MS", cursive;
 }
 </style>

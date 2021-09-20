@@ -4,6 +4,8 @@
       <nav class="navbar navbar-expand-lg  bg-light ">
         <div class="container-fluid">
           <a class="navbar-brand" href="/">G.Employees</a>
+          <a class="link pull-right" href="/login" >  Se connecter</a>
+
         </div>
       </nav>
     </div>
@@ -220,8 +222,8 @@ export default {
 }
 
 .card {
-  border-radius: 3%;
-  width: 55%;
+  
+  width: 60%;
   display: flex;
   text-align: left;
   justify-content: center;
@@ -239,5 +241,11 @@ h3 {
 label {
   font-weight: 500;
   color: grey;
+}
+.link{
+  text-decoration: none;
+  margin-right: 2%;
+  font-size: large;
+ font-family: "Comic Sans MS", cursive;
 }
 </style>

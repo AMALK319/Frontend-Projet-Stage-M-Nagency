@@ -4,6 +4,8 @@
       <nav class="navbar navbar-expand-lg  bg-light ">
         <div class="container-fluid">
           <a class="navbar-brand" href="/">G.Employees</a>
+          <a class="linke pull-right" href="/login" >  Se connecter</a>
+
         </div>
       </nav>
     </div>
@@ -105,5 +107,11 @@ export default {
 }
 .link {
   color: #DC143C;
+}
+.linke{
+  text-decoration: none;
+  margin-right: 2%;
+  font-size: large;
+ font-family: "Comic Sans MS", cursive;
 }
 </style>

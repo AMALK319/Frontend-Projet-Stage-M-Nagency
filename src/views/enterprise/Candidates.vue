@@ -45,7 +45,7 @@
           <div class="card card-candi">
             <div class="card-body">
               <div class="icon text-center">
-                <i class="fas fa-female"></i>
+                <i class="fas fa-user-tie"></i>
               </div>
               <h5 class="card-title text-center">
                 {{ candidate.first_name }}.{{ candidate.last_name[0] }}
