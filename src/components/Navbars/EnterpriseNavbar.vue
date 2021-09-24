@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg fixed-top navbar-light navigation">
     <div class="container-fluid">
-      <a class="navbar-brand navlink" href="/">Logo</a>
+      <a class="navbar-brand navlink" href="/">G.Employees</a>
       <button
         class="navbar-toggler"
         type="button"
@@ -34,7 +34,7 @@
               >Nos Candidats</a
             >
           </li>
-          <li class="nav-item dropdown">
+      <!--     <li class="nav-item dropdown">
             <a
               class="nav-link navlink dropdown-toggle"
               href="#"
@@ -55,7 +55,7 @@
                 </li>
               </div>
             </ul>
-          </li>
+          </li> -->
         </ul>
         <div class="d-flex">
           <a

@@ -2,7 +2,7 @@
 <template>
   <nav class="navbar navbar-expand-lg fixed-top navbar-light navigation">
     <div class="container-fluid">
-      <a class="navbar-brand navlink nav-link" href="/">Logo</a>
+      <a class="navbar-brand navlink nav-link" href="/">G.Employees</a>
       <button
         class="navbar-toggler"
         type="button"

@@ -3,7 +3,7 @@
      <div id="navb">
       <nav class="navbar navbar-expand-lg  bg-light ">
         <div class="container-fluid">
-          <a class="navbar-brand" href="/">G.Employees</a>
+          <a class="navbar-brand" href="/">F.Employees</a>
           <a class="link pull-right" href="/login" >  Se connecter</a>
 
         </div>

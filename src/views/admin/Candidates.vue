@@ -165,11 +165,13 @@ export default {
     },
     deleteCandidate(id) {
       ApiService.get(this.$appUrl + "/api/admin/delete-candidate/" + id)
-        .then((response) => {
-          console.log(response);
-          location.reload;
+        .then(() => {
+        
+          
+           
         })
         .catch((error) => console.log(error));
+          location.reload;
     },
   },
 };

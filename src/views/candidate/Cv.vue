@@ -255,10 +255,7 @@
             <!--    formation -->
             <h5><i class="bi bi-book"></i> Formations</h5>
             <div v-for="(degree, index) in degrees" :key="index.$key">
-              <add-degree
-                :degree="degree"
-                :erros="erros"
-              />
+              <add-degree :degree="degree" :erros="erros" />
 
               <button
                 @click="showModalDegree = true"
@@ -323,10 +320,7 @@
             <!--   projet -->
             <h5><i class="bi bi-kanban"></i> Projets Academiques</h5>
             <div v-for="(project, index) in projects" :key="index.$key">
-              <add-project
-                :project="project"
-               
-              />
+              <add-project :project="project" />
 
               <button
                 class="btn btn-sm btn-complete btn-secondary pull-right"
@@ -386,8 +380,58 @@
             <!--   projet -->
           </div>
           <!--  Education -->
+          <div class="experiences" v-show="current_step == 4">
+            <!--  experience -->
+            <h5><i class="bi bi-briefcase-fill"></i> Expériences professionnelles</h5>
+            <div v-for="(experience, index) in experiences" :key="index.$key">
+              <add-experience :experience="experience" :erros="erros" />
 
-          <div class="experiences" v-show="current_step == 4"></div>
+              <button class="btn btn-sm btn-complete btn-secondary pull-right">
+                <i class="bi bi-trash" style="color: white; font-size: 80%"></i>
+                Supprimer
+              </button>
+
+              <br /><br />
+            </div>
+            <button
+              class="btn btn-sm add-btn btn-suc"
+              @click="addNewDegree('experience')"
+            >
+              <i class="bi bi-plus-lg" style="color: white; font-size: 80%"></i>
+              Ajouter Expérience
+            </button>
+
+            <br />
+            <hr />
+            <br />
+            <!--    experience -->
+
+            <!--   certification -->
+            <h5><i class="bi bi-bookmark-star-fill"></i> Certifications</h5>
+            <div
+              v-for="(certification, index) in certifications"
+              :key="index.$key"
+            >
+              <add-certification :certification="certification" :erros="erros" />
+
+              <button class="btn btn-sm btn-complete btn-secondary pull-right">
+                <i class="bi bi-trash" style="color: white; font-size: 80%"></i>
+                Supprimer
+              </button>
+
+              <br /><br />
+            </div>
+            <button
+              class="btn btn-sm add-btn btn-suc"
+              @click="addNewDegree('certification')"
+            >
+              <i class="bi bi-plus-lg" style="color: white; font-size: 80%"></i>
+              Ajouter Certification</button
+            ><br />
+            <hr />
+            <br />
+            <!--   certification -->
+          </div>
           <div class="distinctions" v-show="current_step == 5">
             <!-- Competences -->
             <h5><i class="bi bi-pencil"></i> Compétences</h5>
@@ -632,7 +676,10 @@
           <br />
         </div>
       </div>
-      <div class="card tools-card big-card" v-show="coord.cv_created == 1 || success">
+      <div
+        class="card tools-card big-card"
+        v-show="coord.cv_created == 1 || success"
+      >
         <div class="row">
           <button
             class="btn print-btn pull-left"
@@ -651,7 +698,7 @@
         </div>
       </div>
     </div>
-   <!--  <br /><br /><br /> -->
+    <!--  <br /><br /><br /> -->
     <Footer></Footer>
   </div>
 </template>
@@ -660,6 +707,8 @@ import CandidateNavbar from "@/components/Navbars/CandidateNavbar.vue";
 import AddDegree from "../../components/Cv/AddDegree.vue";
 import AddProject from "../../components/Cv/AddProject.vue";
 import AddCompetence from "../../components/Cv/AddCompetence.vue";
+import AddCertification from "../../components/Cv/AddCertification.vue";
+import AddExperience from "../../components/Cv/AddExperience.vue";
 import ApiService from "../../services/api.service";
 import Footer from "@/components/Footer.vue";
 export default {
@@ -670,6 +719,8 @@ export default {
     AddDegree,
     AddProject,
     AddCompetence,
+    AddExperience,
+    AddCertification,
   },
   data() {
     return {
@@ -709,6 +760,27 @@ export default {
           project_end_date: "",
         },
       ],
+      certifications: [
+        {
+          certification_name: "",
+          issuing_agency: "",
+          issue_date: "",
+          expiration_date: "",
+          degree_id: "",
+          degree_url: "",
+        },
+      ],
+      experiences: [
+        {
+          experience_title: "",
+          experience_description: "",
+          enterprise_name: "",
+          enterprise_city: "",
+          enterprise_address: "",
+          experience_start_date: "",
+          experience_end_date: "",
+        },
+      ],
       competences: [
         {
           competence: "",
@@ -727,7 +799,7 @@ export default {
       showModalQuality: false,
       showModalSubmit: false,
 
-     erros : {},
+      erros: {},
     };
   },
   mounted() {
@@ -744,6 +816,8 @@ export default {
         if (this.coord.cv_created == 1) {
           this.degrees = response.data.degrees;
           this.projects = response.data.projects;
+          this.experiences = response.data.experiences;
+          this.certifications = response.data.certifications;
           this.competences = response.data.competences;
           this.qualities = response.data.qualities;
           this.languages = response.data.languages;
@@ -795,6 +869,27 @@ export default {
             master_project: "",
             project_start_date: "",
             project_end_date: "",
+          });
+          break;
+        case "experience":
+          this.experiences.push({
+            experience_title: "",
+            enterprise_name: "",
+            enterprise_city: "",
+            enterprise_address: "",
+            experience_start_date: "",
+            experience_end_date: "",
+            experience_description: "",
+          });
+          break;
+        case "certification":
+          this.certifications.push({
+            certification_name: "",
+            issuing_agency: "",
+            issue_date: "",
+            expiration_date: "",
+            degree_id: "",
+            degree_url: "",
           });
           break;
         case "competence":
@@ -956,7 +1051,7 @@ export default {
             this.$toast.success("Votre cv a été bien modifié!");
           })
           .catch((error) => {
-             this.erros = error.response.data.errors;
+            this.erros = error.response.data.errors;
             this.$toast.error(
               "Votre cv n'a pas été modifié! Veuillez entrer vos données correctement."
             );
@@ -965,12 +1060,12 @@ export default {
       } else {
         ApiService.post(this.$appUrl + "/api/candidate/store-cv", data)
           .then(() => {
-           this.erros = {};
-           this.success = true;
+            this.erros = {};
+            this.success = true;
             this.$toast.success("Votre cv a été bien enregistré!");
           })
           .catch((error) => {
-             this.erros = error.response.data.errors;
+            this.erros = error.response.data.errors;
             this.$toast.error(
               "Votre cv n'a pas été enregistré! Veuillez entrer vos données correctement."
             );
@@ -989,10 +1084,10 @@ export default {
 <style scoped>
 .container {
   margin-top: 9%;
-   margin-bottom: 10%;
+  margin-bottom: 10%;
 }
 .tools-card {
- /*  margin-bottom: 10%; */
+  /*  margin-bottom: 10%; */
 }
 .big-card {
   width: 80%;
