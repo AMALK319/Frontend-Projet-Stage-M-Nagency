@@ -153,6 +153,7 @@
                   @click="show"
                 ></i>
               </h5>
+              
             </div>
 
             <div class="card">
@@ -262,6 +263,8 @@ export default {
       candidate: null,
       degrees: null,
       projects: null,
+      experiences: null,
+      certifications: null,
       competences: null,
       languages: null,
       qualities: null,
@@ -270,6 +273,7 @@ export default {
       toggleDegree: false,
       toggleExperience: false,
       toggleCertification: false,
+      toggleCompetence: false,
       toggleQuality: false,
       toggleLanguage: false,
       toggleProject: false,
@@ -282,6 +286,8 @@ export default {
         this.candidate = response.data.candidate;
         this.degrees = response.data.degrees;
         this.projects = response.data.projects;
+        this.certifications = response.data.certifications;
+        this.experiences = response.data.experiences;
         this.competences = response.data.competences;
         this.languages = response.data.languages;
         this.qualities = response.data.qualities;
@@ -328,6 +334,20 @@ export default {
             this.toggleProject = true;
           } else {
             this.toggleProject = false;
+          }
+          break;
+          case "certification":
+          if (this.toggleCertification == false) {
+            this.toggleCertification = true;
+          } else {
+            this.toggleCertification = false;
+          }
+          break;
+          case "experience":
+          if (this.toggleExperience == false) {
+            this.toggleExperience = true;
+          } else {
+            this.toggleExperience = false;
           }
           break;
       }

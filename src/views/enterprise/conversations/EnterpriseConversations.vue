@@ -12,7 +12,7 @@
           <br>
           <div
             class="list-group-item"
-            v-for="(item, index) in conversations.slice(0, 6)"
+            v-for="(item, index) in conversations"
             :key="index.$key"
           >
             <a style="cursor: pointer" @click="showConversation(item.token)">

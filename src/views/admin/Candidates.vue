@@ -148,12 +148,14 @@ export default {
       .then((response) => {
         this.candidates = response.data.candidates;
         console.log(response.data);
+        
         /*  console.log(response.data.candidates[0].token); */
       })
       .catch((error) => {
         console.log(error);
       });
   },
+  
   methods: {
     show(token) {
       ApiService.get(this.$appUrl + "/api/admin/get-candidate/" + token)

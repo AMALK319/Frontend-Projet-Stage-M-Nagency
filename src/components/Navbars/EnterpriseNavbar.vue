@@ -93,7 +93,7 @@
             <li>
               <a class="dropdown-item" href="#">Action</a>
             </li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
+          <li><a class="dropdown-item" href="#" @click="logout">Se déconnecter</a></li>
           </ul>
         </div>
       </div>
@@ -123,6 +123,17 @@ export default {
       });
   },
   methods: {
+    logout(){
+      ApiService.get(this.$appUrl + "/api/enterprise/user-logout")
+      .then((response) => {
+         this.$router.push("/" );
+        
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+   },
     show(category) {
       
       ApiService.get(

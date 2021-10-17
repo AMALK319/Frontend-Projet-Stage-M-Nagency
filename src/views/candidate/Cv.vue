@@ -59,13 +59,21 @@
             <div class="card small-card">
               <div class="row">
                 <div class="col-2">
-                  <div
-                    class="card"
-                    style="height: 130px; background-color: rgb(182, 179, 179)"
-                  >
-                    <!-- <div class="icon">
-                    <i class="bi bi-camera" ></i>
-                  </div> -->
+                  <div class="image-upload">
+                    <label for="file-input">
+                      <div
+                        class="card"
+                        style="
+                          height: 130px; width: 120px;
+                          background-color: rgb(219, 214, 214);
+                        "
+                      >
+                        <i class="fa fa-file-image-o upimg" aria-hidden="true" style="color : black"></i>
+                      </div>
+                    </label>
+
+                    <input id="file-input" type="file" />
+                   
                   </div>
                 </div>
                 <div class="col-10">
@@ -208,8 +216,10 @@
                     v-model="specialities[0].speciality"
                   >
                     <option selected></option>
-                    <option value="Cloud Computing">Cloud Computing</option>
-                    <option value="Réseaux">Réseaux</option>
+                   
+                    <option value="Réseaux et Télécoms">Réseaux et Télécoms</option>
+                    <option value="CyberSécurité">CyberSécurité</option>
+                    <option value="Développement Web">Développement Web</option>
                   </select>
                 </div>
               </div>
@@ -225,8 +235,10 @@
                     v-model="specialities[1].speciality"
                   >
                     <option selected></option>
-                    <option value="Cloud Computing">Cloud Computing</option>
-                    <option value="Réseaux">Réseaux</option>
+           
+                    <option value="Réseaux et Télécoms">Réseaux et Télécoms</option>
+                    <option value="CyberSécurité">CyberSécurité</option>
+                    <option value="Développement Web">Développement Web</option>
                   </select>
                 </div>
               </div>
@@ -242,8 +254,10 @@
                     v-model="specialities[2].speciality"
                   >
                     <option selected></option>
-                    <option value="Cloud Computing">Cloud Computing</option>
-                    <option value="Réseaux">Réseaux</option>
+                   
+                    <option value="Réseaux et Télécoms">Réseaux et Télécoms</option>
+                    <option value="CyberSécurité">CyberSécurité</option>
+                    <option value="Développement Web">Développement Web</option>
                   </select>
                 </div>
               </div>
@@ -382,7 +396,9 @@
           <!--  Education -->
           <div class="experiences" v-show="current_step == 4">
             <!--  experience -->
-            <h5><i class="bi bi-briefcase-fill"></i> Expériences professionnelles</h5>
+            <h5>
+              <i class="bi bi-briefcase-fill"></i> Expériences professionnelles
+            </h5>
             <div v-for="(experience, index) in experiences" :key="index.$key">
               <add-experience :experience="experience" :erros="erros" />
 
@@ -412,7 +428,10 @@
               v-for="(certification, index) in certifications"
               :key="index.$key"
             >
-              <add-certification :certification="certification" :erros="erros" />
+              <add-certification
+                :certification="certification"
+                :erros="erros"
+              />
 
               <button class="btn btn-sm btn-complete btn-secondary pull-right">
                 <i class="bi bi-trash" style="color: white; font-size: 80%"></i>
@@ -964,6 +983,53 @@ export default {
             this.showModalProject = false;
           }
           break;
+         /*   case "certification":
+          if (index === 0) {
+            this.certifications[index].certification_name = "";
+            this.certifications[index].issuing_agency = "";
+            this.certifications[index].issue_date = "";
+            this.certifications[index].expiration_date = "";
+            this.certifications[index].degree_id = "";
+            this.certifications[index].degree_url = "";
+            this.showModalProject = false;
+          } else {
+            ApiService.post(
+              this.$appUrl + "/api/candidate/delete-certification",
+              this.certifications[index]
+            )
+              .then((response) => {
+                console.log(response.data);
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+            this.certifications.pop(item);
+         
+          }
+          break;
+           case "project":
+          if (index === 0) {
+            this.projects[index].project_title = "";
+            this.projects[index].project_description = "";
+            this.projects[index].master_project = "";
+            this.projects[index].project_start_date = "";
+            this.projects[index].project_end_date = "";
+            this.showModalProject = false;
+          } else {
+            ApiService.post(
+              this.$appUrl + "/api/candidate/delete-project",
+              this.projects[index]
+            )
+              .then((response) => {
+                console.log(response.data);
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+            this.projects.pop(item);
+            this.showModalProject = false;
+          }
+          break; */
         case "competence":
           if (index === 0) {
             this.competences[index].competence = "";
@@ -1028,6 +1094,8 @@ export default {
       const data = {
         degrees: this.degrees,
         projects: this.projects,
+        experiences: this.experiences,
+       certifications: this.certifications,
         specialities: this.specialities,
         cv_created: this.coord.cv_created,
         first_name: this.coord.first_name,
@@ -1044,7 +1112,7 @@ export default {
         qualities: this.qualities,
         /*   token: this.$store.token, */
       };
-      if (this.cv_created == 1) {
+      if (this.coord.cv_created == 1) {
         ApiService.post(this.$appUrl + "/api/candidate/update-cv", data)
           .then(() => {
             this.erros = {};
@@ -1123,5 +1191,13 @@ hr {
   display: block;
   margin: auto;
   width: 90%;
+}
+.image-upload > input {
+  display: none;
+}
+.upimg{
+  display: block;
+  margin: auto;
+  /* color: rgb(219, 214, 214); */
 }
 </style>
